@@ -1,5 +1,5 @@
 const { arbLog, requireEnvVariables } = require('./arb-shared-dependencies');
-requireEnvVariables(['DEVNET_PRIVKEY', 'RINKARBY_API_KEY', 'INFURA_API_KEY']);
+requireEnvVariables(['DEVNET_PRIVKEY', 'INFURA_API_KEY']);
 
 require('dotenv').config();
 const { ethers } = require("ethers");
