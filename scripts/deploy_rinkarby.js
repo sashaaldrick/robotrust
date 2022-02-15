@@ -7,7 +7,7 @@ async function main() {
     // set up keys and provider.
     const apiKey = process.env.INFURA_API_KEY;
     const privKey = process.env.DEVNET_PRIVKEY;
-    provider = new ethers.providers.InfuraProvider("rinkeby", apiKey);
+    provider = new ethers.providers.InfuraProvider("arbitrum-rinkeby", apiKey);
   
     // create layer 1 wallet.
     let wallet = new ethers.Wallet(privKey, provider);
@@ -21,11 +21,11 @@ async function main() {
 
     // deploy contract.
     const initialBalance = ethers.utils.parseEther("0.1");
-    const contract = await RoboTrustContract.deploy({ value: initialBalance});
+    const contract = await RoboTrustContract.deploy(60, 2, { value: initialBalance});
     await contract.deployed();
     
     // success!
-    console.log(`RoboTrust contract is deployed to ${contract.address}`)
+    console.log(`RoboTrust contract is deployed to ${contract.address} on Rinkarby`);
   }
   
   main()
