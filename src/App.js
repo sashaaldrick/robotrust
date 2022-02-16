@@ -1,10 +1,10 @@
-import React from 'react'
-
+import { React, useState, useEffect } from 'react';
+import { ethers } from 'ethers';
 import { Footer, Blog, Possibility, Features, RoboTrust, Header } from './containers';
 import { CTA, Brand, Navbar } from './components';
 import './App.css';
 
-const App = () => {
+function App() {
   return (
     <div className="App">
         <div className="gradient__bg">
@@ -19,4 +19,4 @@ const App = () => {
   )
 }
 
-export default App 
+export default App;

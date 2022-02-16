@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import{ React, useState, useEffect} from 'react'
 import './navbar.css';
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import logo from '../../assets/robotrust.png';
-
-// BEM -> Block Element Modifier CSS notation.
+import metamaskIcon from '../../assets/metamask.svg';
 
 const Menu = () => {
     return(
@@ -15,6 +14,43 @@ const Menu = () => {
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
+  const [currentAccount, setCurrentAccount] = useState('');
+  const [accountFound, setAccountFound] = useState(false);
+  const [connectButtonClicked, setConnectButtonClicked] = useState(false);
+
+  const connectWalletHandler = async () => { 
+    // if no auto-login, show a connect wallet button to allow for connection to metamask.
+  
+    const { ethereum } = window;
+  
+    if (!ethereum) {
+      alert("Please install Metamask!")
+    }
+  
+    try {
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts'});
+      console.log("Found an account! Address: ", accounts[0]);
+      setCurrentAccount(accounts[0]);
+      setAccountFound(true);
+      setConnectButtonClicked(true);
+    } catch(err) {
+      console.log(err);
+      setConnectButtonClicked(true);
+    }
+  }
+
+  const ConnectedAccountInfo = () => {
+    const slicedAddress = currentAccount.slice(0, 5) + "..." + currentAccount.slice(-4);
+    return(
+      <div className="connected-account">
+        <img src={metamaskIcon} alt="Metamask Icon" />
+        {accountFound && connectButtonClicked 
+         ? <p> {slicedAddress} </p>
+         : <p> Please install Metamask! </p>
+        }
+      </div>
+    );
+  }
 
   return (
     <div className="navbar">
@@ -27,7 +63,10 @@ const Navbar = () => {
         </div>
       </div>
       <div className="connect-wallet">  
-        <button type="button"> Connect your wallet </button>
+        {accountFound 
+          ? <ConnectedAccountInfo />
+          : <button type="button" onClick={connectWalletHandler}> Connect your wallet </button>
+        }
       </div>
       <div className="navbar-menu">
         {toggleMenu
@@ -45,4 +84,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default Navbar;

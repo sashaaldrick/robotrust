@@ -55,7 +55,7 @@
     cursor: pointer;
 }
 
-/* Connect wallet button */
+/* Connect wallet button and connected account info */
 /* ------------------------- */
 
 .connect-wallet button {
@@ -70,6 +70,39 @@
    outline: none;
    cursor: pointer;
    border-radius: 5px;
+}
+
+.connected-account {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    padding: 0.5rem 1rem;
+    color: #fff;
+    background: #FF4820;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.connected-account img {
+    width: 40px; 
+    margin-right: 1rem;
+}
+
+.connected-account p {
+    color: #fff;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 25px;
+    text-transform: capitalize;
+    letter-spacing: -0.04em;
 }
 
 /* navbar-menu, 3 line icon for small width devices and holds required logic */
