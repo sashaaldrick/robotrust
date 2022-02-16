@@ -1,6 +1,8 @@
 require('dotenv').config();
 const { ethers } = require("ethers");
 const hre = require("hardhat");
+const args = require("../arguments.js");
+const { run_keeper } = require('../scripts/keepers.js');
 
 async function main() {
   
@@ -9,7 +11,7 @@ async function main() {
     const privKey = process.env.DEVNET_PRIVKEY;
     provider = new ethers.providers.InfuraProvider("arbitrum-rinkeby", apiKey);
   
-    // create layer 1 wallet.
+    // create wallet.
     let wallet = new ethers.Wallet(privKey, provider);
     console.log('Your wallet address:', wallet.address);
   
@@ -17,20 +19,16 @@ async function main() {
     const RoboTrustContract = await (
       await hre.ethers.getContractFactory("RoboTrust")
     ).connect(wallet);
-    console.log('Deploying RoboTrust contract to Rinkeby');
+    console.log('Deploying RoboTrust contract to Rinkarby');
 
     // deploy contract.
     const initialBalance = ethers.utils.parseEther("0.1");
-    const contract = await RoboTrustContract.deploy(60, 2, { value: initialBalance});
+    const contract = await RoboTrustContract.deploy(args[0], args[1], args[2], args[3], { value: initialBalance});
     await contract.deployed();
     
     // success!
-    console.log(`RoboTrust contract is deployed to ${contract.address} on Rinkarby`);
+    console.log(`RoboTrust contract is deployed to ${contract.address} on Rinkarby\nRunning Keeper...`);
+    await run_keeper(contract.address);
   }
   
   main()
-    .then(() => process.exit(0))
-    .catch((error) => {
-      console.error(error);
-      process.exit(1);
-    });
