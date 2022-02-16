@@ -3,9 +3,10 @@ const { ethers } = require("ethers");
 
 const RoboTrust = require('../src/artifacts/contracts/RoboTrust.sol/RoboTrust.json')
 // abitrum contract address
-const contractAddress = "0x8E81fD812d5aD76Cf9296107453872392AB2c7BD";
+//const contractAddress = "0xcFA566c04F0347861a6982393613cae35E6C36D4";
 
-async function main() {
+module.exports = {
+  run_keeper: async function (contractAddress) {
     // set up keys and provider.
     const apiKey = process.env.INFURA_API_KEY;
     const privKey = process.env.DEVNET_PRIVKEY;
@@ -36,5 +37,5 @@ async function main() {
     // setting the function checkUpkeep to run every 15 seconds.
     setInterval(checkUpkeep, 15000);
   }
+} 
 
-  main();
