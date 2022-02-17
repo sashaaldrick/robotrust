@@ -16,19 +16,27 @@ async function main() {
     console.log('Your wallet address:', wallet.address);
   
     // connect signer to contract object.
+    /*
     const RoboTrustContract = await (
       await hre.ethers.getContractFactory("RoboTrust")
     ).connect(wallet);
-    console.log('Deploying RoboTrust contract to Rinkarby');
+    */
+   const RoboTrustDeployerContract = await (
+     await hre.ethers.getContractFactory("RoboTrustDeployer")
+   ).connect(wallet);
+   console.log('Deploying RoboTrust contract to Rinkarby');
 
     // deploy contract.
+    /*
     const initialBalance = ethers.utils.parseEther("0.1");
     const contract = await RoboTrustContract.deploy(args[0], args[1], args[2], args[3], { value: initialBalance});
+    */
+    const contract = await RoboTrustDeployerContract.deploy(args[3]);
     await contract.deployed();
     
     // success!
-    console.log(`RoboTrust contract is deployed to ${contract.address} on Rinkarby\nRunning Keeper...`);
-    await run_keeper(contract.address);
+    console.log(`RoboTrustDeployer contract is deployed to ${contract.address} on Rinkarby`);
+    //await run_keeper(contract.address);
   }
   
   main()
