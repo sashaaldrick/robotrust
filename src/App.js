@@ -1,6 +1,8 @@
 import { React, useState, useEffect } from 'react';
 import { Footer, Blog, Possibility, Features, RoboTrust, Header, Client } from './containers';
 import { CTA, Brand, Navbar } from './components';
+import store from './state'
+import { Provider as ReduxProvider } from 'react-redux'
 import './App.css';
 
 function App() {
@@ -8,8 +10,9 @@ function App() {
   const [currentAccount, setCurrentAccount] = useState('');
   const [accountFound, setAccountFound] = useState(false);
   const [connectButtonClicked, setConnectButtonClicked] = useState(false);
-
+  
   return (
+  <ReduxProvider store={store}>
     <div className="App">
         <div className="gradient__bg">
             <Navbar 
@@ -41,6 +44,7 @@ function App() {
         <CTA />
         <Footer />
     </div>
+    </ReduxProvider>
   )
 }
 
