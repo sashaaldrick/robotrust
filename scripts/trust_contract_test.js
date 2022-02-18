@@ -11,20 +11,21 @@ async function main() {
     let wallet = new ethers.Wallet(privKey, provider);
     console.log('Your wallet address:', wallet.address);
 
-    const trustContract = new ethers.Contract("0x8802358FB64Fb2557795ec31851a189fA348C0c5", RoboTrust.abi, wallet);
-    const owner = (await trustContract.owner()).toString();
-    const initialUSDValue = (await trustContract.initialUSDValue()).toString();
-    const trustee = (await trustContract.trustee()).toString();
-    const beneficiary = (await trustContract.beneficiary()).toString();
+    const trustContract = new ethers.Contract("0x057d6Bb36C14DfAb5dEEcfdBf37b0cD9208D8be3", RoboTrust.abi, wallet);
+    const owner = (await trustContract.getOwnerAddress()).toString();
+    
+    const initialUSDValue = (await trustContract.getInitialValueData()).toString();
+    const trustee = (await trustContract.getTrusteeAddress()).toString();
+    const beneficiary = (await trustContract.getBeneficiaryAddress()).toString();
     console.log("Owner: %s\nTrustee: %s\nBeneficiary: %s\nInitial USD Value: %s", owner, trustee, beneficiary, initialUSDValue);
-    const annuityPV = (await trustContract.annuityPV()).toString();
-    const gift = (await trustContract.gift()).toString();
+    const annuityPV = (await trustContract.getAnnuityPV()).toString();
+    const gift = (await trustContract.getGift()).toString();
     console.log("Annuity Present Value: %s\nGift amount: %s", annuityPV, gift);
-    const nextPayoutNo = parseInt((await trustContract.noOfPayouts()));
+    const nextPayoutNo = parseInt((await trustContract.getPayoutCount()));
     console.log(nextPayoutNo);
-    const maxPayouts = parseInt((await trustContract.maxPayouts()));
+    const maxPayouts = parseInt((await trustContract.getMaxPayouts()));
     console.log(maxPayouts);
-    const nextPaymentAmount = (await trustContract.paymentAmounts(nextPayoutNo == maxPayouts ? maxPayouts - 1 : nextPayoutNo)).toString();
+    const nextPaymentAmount = (await trustContract.getPaymentsMade()).toString();
     console.log("Payout amounts: %s", nextPaymentAmount);
     const status = (await trustContract.terminated()).toString();
     console.log("Terminated Status: %s", status);
