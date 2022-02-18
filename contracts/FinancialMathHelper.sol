@@ -1,14 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.11;
+pragma solidity >=0.8.11;
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "hardhat/console.sol";
 
 contract FinancialMathHelper {
     AggregatorV3Interface internal priceFeed;
-    //address payable public owner;
-    //uint public usdValue;
-    //uint public paymentUSD;
 
     struct Payment {
         uint ethPaid; //WEI
@@ -22,8 +19,6 @@ contract FinancialMathHelper {
     //Rinkeby Testnet ETH/USD feed: 0x8A753747A1Fa494EC906cE90E9f37563A8AF630e
     constructor(address _priceFeedAddress) {
         priceFeed = AggregatorV3Interface(_priceFeedAddress);
-        //get the USD value of the amount deposited at deployment and store
-        //console.log("Last ETH Price: %s, Msg Value: %s, USD Value: %", lastEthPrice, msg.value, usdValue);
     }
 
     function getUSDValue(uint _ethAmountWei) public view returns (uint, uint, uint80, uint) {
@@ -46,7 +41,6 @@ contract FinancialMathHelper {
         (uint currentEthPrice, uint80 roundId, uint timestamp) = getLastEthPriceUSD(); 
         uint ethPayment = (paymentUSD * 10**8) / currentEthPrice; 
         Payment memory payment = Payment(ethPayment, block.timestamp, currentEthPrice, roundId, timestamp, _usdAmountDegree18);
-        ///9000000000000000000 / 300000000 0000000000 = .33333
         return payment;
     }
 }
