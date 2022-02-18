@@ -2,7 +2,6 @@ import  React, { Component } from 'react';
 import { useState, useEffect } from 'react';
 import './client.css';
 
-import Feature from '../feature/Feature';
 import metamaskIcon from '../../assets/metamask.svg';
 
 import { ethers } from 'ethers';
@@ -156,7 +155,6 @@ const Client = props => {
   return (
     <div className="client section-margin" id="client">
       <div className="client-feature"> 
-        <Feature title="Create a GRAT"/>   
         <div className="connect-wallet">  
           {props.accountFound 
             ? <ConnectedAccountInfo />
@@ -164,7 +162,6 @@ const Client = props => {
           }
         </div>
       </div>
-      <ProfilePage />
       <div className="eth-amount"> 
         <h1 className="gradient__text"> Enter ETH Amount: </h1>
         <input onChange={e => ethToUSD(e.target.value)} type="text" placeholder="ETH Amount..." />
