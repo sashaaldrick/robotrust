@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
-import { Footer, Blog, Possibility, Features, RoboTrust, Header, Client } from './containers';
-import { CTA, Brand, Navbar } from './components';
+import { Footer, Header, Client } from './containers';
+import { Navbar } from './components';
 import store from './state'
 import { Provider as ReduxProvider } from 'react-redux'
 import './App.css';
@@ -28,7 +28,6 @@ function App() {
             setClientRequested={setClientRequested} 
             />
         </div>
-        {/* <Brand /> */}
         {clientRequested 
          ? <Client 
              currentAccount={currentAccount} 
@@ -40,12 +39,11 @@ function App() {
            />
          : ''
         }
-        <RoboTrust />
-        <CTA />
+        {/* <RoboTrust /> */}
         <Footer />
     </div>
     </ReduxProvider>
   )
-}
+};
 
 export default App;

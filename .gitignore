@@ -31,3 +31,4 @@ artifacts
 
 .vscode/*
 .mocharc.json
+package-lock.json
