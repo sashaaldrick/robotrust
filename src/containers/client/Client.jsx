@@ -1,5 +1,7 @@
 import  React, { Component } from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import useSetGRAT from "../../hooks/useSetGRAT";
+import useGetETHtoUSD from '../../hooks/useGetETHtoUSD';
 import './client.css';
 
 import Feature from '../../components/feature/Feature';
@@ -8,25 +10,15 @@ import metamaskIcon from '../../assets/metamask.svg';
 import { ethers } from 'ethers';
 
 
-class ProfilePage extends React.Component {
-  showMessage = () => {
-    alert('Followed ' + this.props.user);
-  };
-
-  handleClick = () => {
-    setTimeout(this.showMessage, 3000);
-  };
-
-  render() {
-    return <button onClick={this.handleClick}>Follow</button>;
-  }
-}
 
 
 
 const Client = props => {
   // set client state
-
+  const [GRAT, setGRAT] = useSetGRAT();
+  console.log('GRAT!!!', GRAT);
+  const amountUSD = useGetETHtoUSD();
+  console.log('usd', amountUSD);
   const [usdAmount, setUsdAmount] = useState(0);
   const [noOfPayouts, setNoOfPayouts] = useState(0);
   const [trusteeAddress, setTrusteeAddress] = useState('');
@@ -44,7 +36,7 @@ const Client = props => {
     return () => setValue(value => value + 1); // update the state to force render
   }
 
-  function getFirstPayment(presentValue = 0, interestRate = 0, gradingPercent = 0, numberOfYears = 2) {
+  function GetFirstPayment(presentValue = 0, interestRate = 0, gradingPercent = 0, numberOfYears = 2) {
     console.log("In getFirstPayment function!");
     let _firstPayment = (((interestRate - gradingPercent) * presentValue) / (1 - (((1 + gradingPercent)/(1 + interestRate))**numberOfYears)));
     console.log('Present Value: ' + presentValue);
@@ -185,7 +177,6 @@ const Client = props => {
           }
         </div>
       </div>
-      <ProfilePage />
       <div className="eth-amount"> 
         <h1 className="gradient__text"> Enter ETH Amount: </h1>
         <input onChange={e => ethToUSD(e.target.value)} type="text" placeholder="ETH Amount..." />
