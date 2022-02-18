@@ -1,7 +1,7 @@
 import React from 'react';
 import './cta.css';
 
-const CTA = () => (
+const CTA = props => (
   <div className="cta">
     <div className="cta-content">
       <p>Create your own RoboTrust...</p>
@@ -9,7 +9,7 @@ const CTA = () => (
       <h3>What are you waiting for?</h3>
     </div>
     <div className="cta-btn">
-      <button type="button">Get Started</button>
+    <a href="#robotrust"><button type="button" onClick={() => props.setClientRequested(!props.clientRequested)}>Get Started</button></a>
     </div>
   </div>
 );

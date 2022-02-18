@@ -1,0 +1,682 @@
+/* client app section */
+/* ------------------------- */
+
+.client {
+    display: flex;
+    flex-direction: column;
+
+    padding: 4rem;
+    background: var(--color-footer);
+
+    /* ff 3.6+ */
+    background:-moz-radial-gradient(circle at 30% -100%, #042c54 25%, rgba(4, 44, 84, 1) 85%, rgba(27, 120, 222, 1) 100%);
+
+    /* safari 5.1+,chrome 10+ */
+    background:-webkit-radial-gradient(circle at 30% -100%, #042c54 25%, rgba(4, 44, 84, 1) 85%, rgba(27, 120, 222, 1) 100%);
+
+    /* opera 11.10+ */
+    background:-o-radial-gradient(circle at 30% -100%, #042c54 25%, rgba(4, 44, 84, 1) 85%, rgba(27, 120, 222, 1) 100%);
+
+    /* ie 10+ */
+    background:-ms-radial-gradient(circle at 30% -100%, #042c54 25%, rgba(4, 44, 84, 1) 85%, rgba(27, 120, 222, 1) 100%);
+
+    /* global 92%+ browsers support */
+    background:radial-gradient(circle at 30% -100%, #042c54 25%, rgba(4, 44, 84, 1) 85%, rgba(27, 120, 222, 1) 100%);
+
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+
+/* dealing with features in client section */
+/* ------------------------- */
+
+.client-feature {
+    display: flex;
+    justify-content: space-between;
+}
+
+.client-features-title  {
+    font-family: var(--font-family);
+    font-weight: 800;
+    font-size: 10px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    color: #FFFFFF;
+}
+
+/* make a cool line over the titles */
+
+.client-features-title div {
+    width: 38px;
+    height: 3px;
+    background: var(--gradient-bar);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 0.25rem;
+}
+
+.client-features-text {
+    flex: 2;
+    max-width: 390px;
+    display: flex;
+}
+
+.client-features-text p {
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+
+    color: var(--color-text);
+}
+
+
+/* eth converter box and below */
+/* ------------------------- */
+
+.eth-amount {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    /* top | right | bottom | left */
+    padding: 2rem 0 2rem 0;
+}
+
+.eth-amount h1 {
+    font-size: 24px;
+    line-height: 45px;
+    font-weight: 800;
+    font-family: var(--font-family);
+    max-width: 510px;
+    margin-right: 1rem;
+}
+
+/* 'Enter GRAT Provisions' */
+/* ------------------------- */
+
+.grat-header {
+    margin-top: 5rem;
+}
+
+.grat-header h1 {
+    font-size: 36px;
+    line-height: 45px;
+    font-weight: 800;
+    font-family: var(--font-family);
+    max-width: 510px;
+    margin-right: 1rem;
+}
+
+/* USD value display text and value */
+/* ------------------------- */
+
+.value-usd {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.value-usd h1 {
+    font-size: 24px;
+    line-height: 45px;
+    font-weight: 800;
+    font-family: var(--font-family);
+    max-width: 510px;
+    margin-right: 1rem;
+}
+
+.usd-amount {
+    /* keep padding seperated for usd-amount value on page */
+
+    padding-bottom: 1rem;
+    font-size: 36px !important;
+    margin-left: 2.5rem !important;
+    margin-right: 5% !important;
+
+}
+
+/* Individual provisions */
+/* ------------------------- */
+
+.trustee-address,
+.beneficiary-address,
+.no-payouts,
+.retained-interest,
+.term-in-years,
+.graduated-payment,
+.graduated-percentage,
+.beneficiary-accounting,
+.interest-rate
+ {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    /* top | right | bottom | left */
+    padding: 2rem 0 0 0;
+}
+
+.graduated-amount {
+    display: flex;
+    flex-direction: column;
+}
+
+.trustee-address h1,
+.beneficiary-address h1,
+.no-payouts h1,
+.retained-interest h1,
+.term-in-years h1,
+.graduated-payment h1,
+.graduated-percentage h1,
+.beneficiary-accounting h1,
+.interest-rate h1 {
+    font-size: 24px;
+    line-height: 45px;
+    font-weight: 800;
+    font-family: var(--font-family);
+    max-width: 510px;
+    margin-right: 1rem;
+}
+
+.eth-amount p,
+.trustee-address p,
+.no-payouts p,
+.retained-interest p,
+.term-in-years p,
+.graduated-payment p,
+.graduated-percentage p,
+.interest-rate p {
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 30px;
+    color: var(--color-subtext);
+    cursor: pointer;
+}
+
+.eth-amount input,
+.trustee-address input,
+.beneficiary-address input,
+.no-payouts input,
+.retained-interest input,
+.term-in-years input,
+.graduated-payment input,
+.graduated-percentage input,
+.interest-rate input {
+    flex: 2;
+    background: var(--color-footer);
+    border: 2px solid var(--color-footer);
+    padding: 0 1rem;
+    outline: none;
+    color: #fff;
+    min-height: 50px;
+    border-radius: 5px 0px 0px 5px;
+    font-family: var(--font-family);
+    font-size: 20px;
+    line-height: 27px;
+    color: #3D6184;
+
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    max-width: 750px;
+    min-width: 100px;
+}
+
+/* disclaimers and child containers */
+/* ------------------------- */
+
+.value-disclaimer,
+.trustee-disclaimer,
+.interest-disclaimer,
+.years-disclaimer,
+.graduated-disclaimer,
+.beneficiary-disclaimer,
+.interest-disclaimer {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.value-disclaimer p,
+.trustee-disclaimer p,
+.interest-disclaimer p,
+.years-disclaimer p,
+.graduated-disclaimer p,
+.graduation-warning p,
+.beneficiary-disclaimer p,
+.interest-link p {
+
+    align-items: center;
+    text-align: left;
+
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--color-subtext);
+    cursor: pointer;
+
+    padding-top: 0.5rem;
+    margin-top: 0.5rem; 
+    margin-right: 70%;
+    /* border: none;
+    background: var(--gradient-bar);
+
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+    color:#FFFFFF;
+    padding: 2rem;
+    margin: 1rem; */
+}
+
+.interest-link p a {
+    margin-left: 0rem !important;
+    cursor: pointer;
+    color: #FF8A71;
+    /* font-weight: bold; */
+    text-decoration: underline;
+}
+
+/* meta grat-provisions container */
+/* ------------------------- */
+
+.grat-provisions {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-top: 2rem;
+}
+
+.grat-provisions .line {
+    height: 3px;
+    background: var(--gradient-bar);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 0.25rem;
+} 
+
+/* container holding multiple features */
+/* ------------------------- */
+
+.client-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+    margin-top: 2rem;
+}
+
+.client-container .client-features-container {
+    flex: 1;
+    margin: 0.5rem;
+    min-width: 210px;
+    display: unset;
+    flex-direction: column;
+}
+
+.client-container .client-features-container .client-features-text {
+    margin-top: 0.5rem;
+}
+
+/* Review button */
+/* ------------------------- */
+
+.review-button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.review-button button {
+    padding: 0.5rem 3rem;
+    color: #fff;
+    /* background: #FF4820; */
+    background: none;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 25px;
+    border: 2px solid #F49867;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 2rem;
+ }
+
+/* media queries */
+/* ------------------------- */
+
+@media screen and (max-width: 850px) {
+    .client-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 0rem;
+    }
+
+    .client-heading p {
+        margin-top: 1rem;
+    }
+
+    .value-usd h1 {
+        font-size: 24px;
+        padding-top: 0.5rem;
+    }
+
+    .value-usd p {
+        font-size: 24px !important;
+    }
+
+    .value-disclaimer p,
+    .trustee-disclaimer p,
+    .interest-disclaimer p,
+    .years-disclaimer p,
+    .graduated-disclaimer p,
+    .graduation-warning p,
+    .beneficiary-disclaimer p,
+    .interest-link p {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: left;
+
+            font-family: var(--font-family);
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 20px;
+            color: var(--color-subtext);
+            cursor: pointer;
+
+            padding-top: 0.5rem;
+            margin-top: 0.5rem; 
+            margin-right: 55%;
+            /* border: none;
+            background: var(--gradient-bar);
+
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+
+            color:#FFFFFF;
+            padding: 2rem;
+            margin: 1rem; */
+    }
+
+}
+
+@media screen and (max-width: 660px) {
+
+    /* this is where the input boxes go askew so fixing those here */
+
+    .client {
+        padding: 0rem !important;
+    }
+
+    .grat-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .grat-header h1 {
+        font-size: 16px;
+        margin: 1rem;
+    }
+
+    .grat-provisions line {
+        margin-left: 1rem;
+    }
+
+    .value-usd {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .eth-amount,
+    .trustee-address,
+    .beneficiary-address,
+    .no-payouts,
+    .retained-interest,
+    .term-in-years,
+    .graduated-payment,
+    .graduated-percentage,
+    .beneficiary-accounting,
+    .interest-rate {
+        display: flex;
+        flex-direction: column;
+    } 
+
+   .value-disclaimer p,
+   .trustee-disclaimer p,
+   .interest-disclaimer p,
+   .years-disclaimer p,
+   .graduated-disclaimer p,
+   .beneficiary-disclaimer p,
+   .interest-link p {
+        font-size: 12px;
+        padding-left: 3rem;
+        padding-right: 3rem;
+   } 
+
+    /* Customizing feature component as per needs */
+    /* .client-feature .client-features-container {
+        flex-direction: column;
+    }  */
+
+    /* Customizing feature component as per needs */
+    /* .client-feature .client-features-container .client-features-text {
+        margin-top: 0.5rem;
+    }  */
+
+    /* .client-heading h1 {
+        font-size: 28px;
+        line-height: 40px;
+    }  */
+}
+
+@media screen and (max-width: 570px) {
+
+    .client {
+        padding: 0rem !important;
+    }
+
+    .client-feature {
+        margin-top: 2rem;
+        margin-left: 2rem;
+    }
+
+    .grat-header {
+        display: none;
+    }
+
+    .value-usd {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .eth-amount,
+    .trustee-address,
+    .beneficiary-address,
+    .no-payouts,
+    .retained-interest,
+    .term-in-years,
+    .graduated-payment,
+    .graduated-percentage,
+    .beneficiary-accounting,
+    .interest-rate {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    } 
+
+    .eth-amount h1,
+    .trustee-address h1,
+    .beneficiary-address h1,
+    .no-payouts h1,
+    .retained-interest h1,
+    .term-in-years h1,
+    .graduated-payment h1,
+    .graduated-percentage h1,
+    .interest-rate h1 {
+        font-size: 16px !important;
+    } 
+
+    .eth-amount input,
+    .trustee-address input,
+    .beneficiary-address input,
+    .no-payouts input,
+    .retained-interest input,
+    .term-in-years input,
+    .graduated-payment input,
+    .graduated-percentage input,
+    .interest-rate input {
+        flex: 2;
+        background: var(--color-footer);
+        border: 2px solid var(--color-footer);
+        padding: 0 1rem;
+        outline: none;
+        color: #fff;
+        min-height: 50px;
+        border-radius: 5px 0px 0px 5px;
+        font-family: var(--font-family);
+        font-size: 20px;
+        line-height: 27px;
+        color: #3D6184;
+
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        max-width: 150px;
+        min-width: 50px;
+    }
+
+}
+
+/* table CSS */
+/* ------------------------- */
+
+.table {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.styled-table {
+    border-collapse: collapse;
+    /* border: 1px solid #FF8A71; */
+    margin: 25px 0;
+    font-size: 2em;
+    font-family: var(--font-family);
+    min-width: 400px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+    background-color: #FF8A71;
+    color: #ffffff;
+    text-align: center;
+}
+
+.styled-table th,
+.styled-table td {
+    text-align: center;
+    padding: 12px 15px;
+    color: #ffffff;
+}
+/* 
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+} */
+
+/* .styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+} */
+
+/* .styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+} */
+
+
+
+
+/* toggle box CSS */
+/* ------------------------- */
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
