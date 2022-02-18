@@ -1,13 +1,12 @@
 //SPDX-License-Identifier: MIT
 // v 0.3; implementing keepers script on Arbitrum. DONE.
-pragma solidity 0.8.11;
+pragma solidity >=0.8.11;
 
 import "hardhat/console.sol";
 import "./FinancialMathHelper.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 contract RoboTrust is FinancialMathHelper {
-    //AggregatorV3Interface internal priceFeed;
     address payable private owner;
     address payable private trustee;
     address payable private beneficiary;
@@ -15,17 +14,13 @@ contract RoboTrust is FinancialMathHelper {
     uint256 internal immutable period;
     uint256 internal lastTimeStamp;
     uint private noOfPayouts;
-    uint private maxPayouts;
+    uint private numberOfYears;
     bool public terminated;
     bool private showBeneficiaryAccounting;
     uint private immutable gift; //USD to 18 decimals
     uint private immutable annuityPV;
     uint private immutable startedTimestamp; //USD to 18 decimals
-    uint private initialEthAmount; //WEI
-    uint private initialUSDValue; // USD to 18 decimals
-    uint private initialEthPrice; //USD to 8 decimals
-    uint private initialEthPriceRound;
-    uint private initialEthPriceTimestamp;
+    Payment private initialGrant;
     uint[] private paymentAmounts; //in USD to 18 decimals (10**18)
     Payment[] private payments;
 
@@ -34,23 +29,26 @@ contract RoboTrust is FinancialMathHelper {
         _;
     }
 
-    constructor(address _owner, address _trustee, address _beneficiary, uint256 _period, uint _maxPayouts, uint[] memory _paymentAmounts, uint _annuityPV, address _priceFeedAddress, bool _showAccounting) FinancialMathHelper(_priceFeedAddress) payable {
+    modifier beneficiaryCanView() {
+        require(msg.sender == beneficiary && showBeneficiaryAccounting);
+        _;
+    }
+
+    constructor(address _owner, address _trustee, address _beneficiary, uint256 _period, uint _numYears, uint[] memory _paymentAmounts, uint _annuityPV, address _priceFeedAddress, bool _showAccounting) FinancialMathHelper(_priceFeedAddress) payable {
         require(_owner != _beneficiary, "Grantor cannot also be the beneficiary");
         require(_trustee != beneficiary, "Beneficiary cannot also be the Trustee");
-        //priceFeed = AggregatorV3Interface(0x5f0423B1a6935dc5596e7A24d98532b67A0AeFd8); //set contract address for proper price ETH/USD price feed for network (Arbitrum Rinkeby)
         deployerContract = msg.sender;
         owner = payable(_owner); // convert msg.sender to payable.
         trustee = payable(_trustee);
         beneficiary = payable(_beneficiary);
         terminated = false;
         showBeneficiaryAccounting = _showAccounting;
-        period = _period; // period to next payment i.e. time or number of blocks.
-        maxPayouts = _maxPayouts; // maximum payouts over the trust's lifespan.
+        period = _period; // period to next payment i.e. time or number of blocks. need to update to one year for final
+        numberOfYears = _numYears; // maximum payouts over the trust's lifespan.
         lastTimeStamp = block.timestamp; 
         paymentAmounts = _paymentAmounts; //list of each payments, will iterate through index
         (uint _usdValue, uint _ethPrice, uint _priceRound, uint _priceTimestamp) = getUSDValue(msg.value);
-        initialEthAmount = msg.value;
-        initialUSDValue = _usdValue;
+        initialGrant = Payment(msg.value, block.timestamp, _ethPrice, _priceRound, _priceTimestamp, _usdValue);
         annuityPV = _annuityPV;
         uint _gift;
         if(annuityPV > _usdValue) {
@@ -59,13 +57,10 @@ contract RoboTrust is FinancialMathHelper {
             _gift = _usdValue - annuityPV;
         }
         gift = _gift;
-        initialEthPrice = _ethPrice;
-        initialEthPriceRound = _priceRound;
-        initialEthPriceTimestamp = _priceTimestamp;
         startedTimestamp = block.timestamp;
     }
 
-    //_amount: amount in ETH (Wei) to pay
+    //_payment: amount in ETH (Wei) to pay
     function payOwner(Payment memory _payment) internal {
         if(_payment.ethPaid > address(this).balance) {
             (bool sent, ) = owner.call{value: address(this).balance}("");
@@ -84,22 +79,22 @@ contract RoboTrust is FinancialMathHelper {
     view
     returns (bool upkeepNeeded) 
     {
-       upkeepNeeded = (block.timestamp - lastTimeStamp) > period && noOfPayouts < maxPayouts && !terminated;
+       upkeepNeeded = (block.timestamp - lastTimeStamp) > period && noOfPayouts < numberOfYears && !terminated;
     }
  
    function performUpkeep() external {
-       if ((block.timestamp - lastTimeStamp) > period && noOfPayouts < maxPayouts && !terminated) {
+       if ((block.timestamp - lastTimeStamp) > period && noOfPayouts < numberOfYears && !terminated) {
            lastTimeStamp = block.timestamp;
            //get USD payment needed to distribute
            Payment memory payment = getPaymentEthAmount(paymentAmounts[noOfPayouts]);
            payOwner(payment);
            //check if this was the last payment and set to terminated/payout beneficiary remaining ETH
-           if(noOfPayouts >= maxPayouts) {
+           if(noOfPayouts >= numberOfYears) {
                //payout remaining balance to beneficiary
                 (bool success, ) = beneficiary.call{value: address(this).balance}("");
                 require(success, "Failed to payout beneficiary");
            }
-           if(noOfPayouts >= maxPayouts || address(this).balance == 0) {
+           if(noOfPayouts >= numberOfYears || address(this).balance == 0) {
                terminated = true;
            }
        }
@@ -122,14 +117,55 @@ contract RoboTrust is FinancialMathHelper {
         terminated = true;
     }
 
-    function toggleAccounting() public {
-        require(msg.sender == trustee, "Only the Trustee can toggle to show accounting");
-        showBeneficiaryAccounting = !showBeneficiaryAccounting;
+    function getTrustData() public view deployerOwnerTrustee returns(
+        address, //0: owner
+        address, //1: trustee
+        address, //2: beneficiary
+        uint, //3: last payment timestamp
+        uint, //4: number of years
+        bool, //5: terminated
+        bool, //6: show beneficiary account
+        uint, //7: Gift amount
+        uint, //8: annuity present value total
+        Payment memory, //9: initial grant
+        uint[] memory, //10: payment Amounts; //in USD to 18 decimals (10**18)
+        Payment[] memory //11: payments made;
+    ) {
+        return(
+            owner,
+            trustee,
+            beneficiary,
+            lastTimeStamp,
+            numberOfYears,
+            terminated,
+            showBeneficiaryAccounting,
+            gift,
+            annuityPV,
+            initialGrant,
+            paymentAmounts,
+            payments
+        );
     }
 
-    function viewPayment(uint64 index) public view returns(Payment memory payment) {
-        require((showBeneficiaryAccounting && msg.sender == beneficiary) || (msg.sender == owner) || msg.sender == trustee, "You are not allowed to view payments");
-        return payments[index];
+    //TO DO
+    function getTrustDataBeneficiary() public view beneficiaryCanView returns(
+        address, //0: owner
+        address, //1: trustee
+        address, //2: contract address
+        uint, //3: contract balance
+        Payment[] memory, //4: payments made
+        uint, //5: starting timestamp
+        uint //6: number of years
+    ) {
+        return (
+            owner,
+            trustee,
+            address(this),
+            address(this).balance,
+            payments,
+            startedTimestamp,
+            numberOfYears
+        );
     }
 
     function getTrusteeAddress() public view deployerOwnerTrustee returns(address) {
@@ -146,33 +182,5 @@ contract RoboTrust is FinancialMathHelper {
 
     function getShowBeneficiaryAccounting() public view deployerOwnerTrustee returns(bool) {
         return showBeneficiaryAccounting;
-    }
-
-    function getInitialValueData() public view deployerOwnerTrustee returns(uint, uint, uint, uint, uint) {
-        return (initialEthAmount, //WEI
-        initialUSDValue, // USD to 18 decimals
-        initialEthPrice, //USD to 8 decimals
-        initialEthPriceRound, 
-        initialEthPriceTimestamp);
-    }
-
-    function getAnnuityPV() public view deployerOwnerTrustee returns(uint) {
-        return annuityPV;
-    }
-
-    function getGift() public view deployerOwnerTrustee returns(uint) {
-        return gift;
-    }
-
-    function getPayoutCount() public view deployerOwnerTrustee returns(uint) {
-        return noOfPayouts;
-    }
-
-    function getMaxPayouts() public view deployerOwnerTrustee returns(uint) {
-        return maxPayouts;
-    }
-
-    function getPaymentsMade() public view deployerOwnerTrustee returns(Payment[] memory) {
-        return payments;
     }
 }
