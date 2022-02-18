@@ -1,6 +1,5 @@
-import { React, useState, useEffect } from 'react';
-import { Footer, Blog, Possibility, Features, RoboTrust, Header, Client } from './containers';
-import { CTA, Brand, Navbar } from './components';
+import { React, useState } from 'react';
+import { Footer,  RoboTrust, Header, Client, Navbar } from './components';
 import './App.css';
 
 function App() {
@@ -25,7 +24,6 @@ function App() {
             setClientRequested={setClientRequested} 
             />
         </div>
-        {/* <Brand /> */}
         {clientRequested 
          ? <Client 
              currentAccount={currentAccount} 
@@ -37,11 +35,10 @@ function App() {
            />
          : ''
         }
-        <RoboTrust />
-        <CTA />
+        {/* <RoboTrust /> */}
         <Footer />
     </div>
   )
-}
+};
 
 export default App;

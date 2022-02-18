@@ -1,5 +1,6 @@
 import{ React, useState, useEffect} from 'react'
 import './navbar.css';
+
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import logo from '../../assets/robotrust.png';
 import metamaskIcon from '../../assets/metamask.svg';
@@ -14,10 +15,7 @@ const Menu = () => {
 
 const Navbar = props => {
   const [toggleMenu, setToggleMenu] = useState(false);
-  // const [currentAccount, setCurrentAccount] = useState('');
-  // const [accountFound, setAccountFound] = useState(false);
-  // const [connectButtonClicked, setConnectButtonClicked] = useState(false);
-
+  
   const connectWalletHandler = async () => { 
     // if no auto-login, show a connect wallet button to allow for connection to metamask.
   
