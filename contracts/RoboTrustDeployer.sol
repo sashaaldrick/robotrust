@@ -10,9 +10,9 @@ contract RoboTrustDeployer {
     address internal priceFeedAddress;
     RoboTrust[] public trustList;
     string internal disclaimer;
-    mapping(address => uint[]) public ownerToTrusts;
-    mapping(address => uint[]) public trusteeToTrusts;
-    mapping(address => uint[]) public beneficiaryToTrusts;
+    mapping(address => uint[]) internal ownerToTrusts;
+    mapping(address => uint[]) internal trusteeToTrusts;
+    mapping(address => uint[]) internal beneficiaryToTrusts;
 
     constructor(address _priceFeedAddress) {
         priceFeedAddress = _priceFeedAddress;
@@ -29,5 +29,17 @@ contract RoboTrustDeployer {
         if(newTrust.getShowBeneficiaryAccounting()) {
             beneficiaryToTrusts[address(newTrust.getBeneficiaryAddress())].push(index);
         }
+    }
+
+    function getOwnerTrusts(address _owner) public view returns(uint[] memory) {
+        return ownerToTrusts[_owner];
+    }
+
+    function getTrusteeTrusts(address _trustee) public view returns(uint[] memory) {
+        return trusteeToTrusts[_trustee];
+    }
+
+    function getBeneficiaryTrusts(address _beneficiary) public view returns(uint[] memory) {
+        return beneficiaryToTrusts[_beneficiary];
     }
 }

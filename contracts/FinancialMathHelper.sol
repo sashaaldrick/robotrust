@@ -19,6 +19,7 @@ contract FinancialMathHelper {
     //Rinkeby Testnet ETH/USD feed: 0x8A753747A1Fa494EC906cE90E9f37563A8AF630e
     constructor(address _priceFeedAddress) {
         priceFeed = AggregatorV3Interface(_priceFeedAddress);
+        //get the USD value of the amount deposited at deployment and store
     }
 
     function getUSDValue(uint _ethAmountWei) public view returns (uint, uint, uint80, uint) {
