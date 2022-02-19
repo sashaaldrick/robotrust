@@ -33,15 +33,17 @@ function App() {
             </div>
             {clientRequested 
             ? 
+            <>
             <GRATClientForm />
-            //  <Client 
-            //      currentAccount={currentAccount} 
-            //      setCurrentAccount={setCurrentAccount}
-            //      accountFound={accountFound}
-            //      setAccountFound={setAccountFound}
-            //      connectButtonClicked={connectButtonClicked}
-            //      setConnectButtonClicked={setConnectButtonClicked}
-            //    />
+             <Client 
+                 currentAccount={currentAccount} 
+                 setCurrentAccount={setCurrentAccount}
+                 accountFound={accountFound}
+                 setAccountFound={setAccountFound}
+                 connectButtonClicked={connectButtonClicked}
+                 setConnectButtonClicked={setConnectButtonClicked}
+               />
+            </>
             : ''
             }
             {/* <RoboTrust /> */}
