@@ -31,7 +31,6 @@ const deployTrust = async (values) => {
 
     const { ethereum } = window;
 
-
     // const { store } = useContext(ReactReduxContext);
     // const GRATFormVariables = store.getState();
 
@@ -46,6 +45,7 @@ const deployTrust = async (values) => {
     //   }
     // }
 
+    
     let provider;
     if (ethereum) {
       // use metamask as provider

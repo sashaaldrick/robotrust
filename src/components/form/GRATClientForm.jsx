@@ -37,12 +37,12 @@ const GRATPage = () => {
       actions.setSubmitting(false);
     } else {
       setGRAT(values);
+      deployTrust(values);
     }
-    // console.log(values);
-    deployTrust(values);
+    
   }
   return (
-      <Box sx={{ p: 1, m: 1 }} className="client">
+      <Box sx={{ p: 1, mx: 3, my: 1 }} className="client">
         <Formik
           initialValues={initialValues}
           // validationSchema={currentValidationSchema}
@@ -60,7 +60,11 @@ const GRATPage = () => {
                 <Box className="">
                   {_renderStepContent(activeStep, FormProps)}
                 </Box>
-                <div className="mt-4 flex justify-end">
+                <Box sx={{
+                  marginBottom: '4rem',
+                  display: 'flex',
+                  justifyContent: 'center'
+                }}>
                   {isLastStep ? (
                     <Button
                       type="submit"
@@ -68,7 +72,7 @@ const GRATPage = () => {
                       color="inherit"
                       sx={{
                         width: "25rem",
-                        backgroundColor: "darkslateblue",
+                        backgroundColor: "darksalmon",
                         fontSize: "1.1rem",
                       }}
                     >
@@ -77,7 +81,7 @@ const GRATPage = () => {
                   ) : (
                     <React.Fragment />
                   )}
-                </div>
+                </Box>
               </Form>
           )}
         </Formik>

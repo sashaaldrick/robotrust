@@ -1,13 +1,14 @@
-import { Box, Typography, Divider, Switch } from '@mui/material'
-import React, { useState } from 'react'
+import { Box, Typography, Divider, Switch, FormLabel } from '@mui/material'
+import React from 'react'
 
 import { InputField as Field } from './fields/input'
 import { SelectField as Select } from './fields/select'
 import { ETHInput } from './fields/ETHInput'
+import useCalculateFirstPayment from '../../hooks/useCalculateFirstPayment'
 
 export const AmountForm = ({ formField, formProps }) => {
   const {termInYears, ethAmount, trusteeAddress, beneficiaryAddress, retainedInterest, graduatedToggle, beneficiaryToggle, interestRate, firstPayment } = formField
-
+    const [firstPaymentVar] = useCalculateFirstPayment(retainedInterest, interestRate, 20, termInYears)
   return (
     <>
         <Box
@@ -35,7 +36,7 @@ export const AmountForm = ({ formField, formProps }) => {
                     label={ethAmount.label}
                     placeholder={ethAmount.placeholder}
                 />
-                <Typography variant="h3" className="gradient__text">Enter GRAT provisions:</Typography>
+                <Typography variant="h3" className="gradient__text">Enter GRAT Provisions</Typography>
                 <Divider />
                 <Box sx={{
                         display: 'flex',
@@ -98,8 +99,58 @@ export const AmountForm = ({ formField, formProps }) => {
                         <Typography style={{color: '#FF8A71'}}>Warning: Setting this value lower than ‘2’ may result in nonrecognition by the IRS.</Typography>
                     </Box>
                 </Box>
-                <Typography style={{color: '#FF8A71'}}>Interest Rate: 1.69%</Typography>
-                <Switch color="secondary" name={beneficiaryToggle.name} label={beneficiaryToggle.label} />
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between'
+                }}>
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column'
+                    }}>
+                <FormLabel style={{ fontSize: '1.5rem' }} className="gradient__text">Interest Rate</FormLabel>
+                <Typography style={{color: '#FF8A71'}}>1.6%</Typography>
+                    </Box>
+                <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        width: '45%'}}>
+                            <Box sx={{
+                                display: 'flex'
+                            }}>
+                                <Switch color="secondary" size='h2' name={graduatedToggle.name} label={graduatedToggle.label} />
+                    <FormLabel style={{ fontSize: '1.5rem' }} className="gradient__text">Increasing Annuity Payments?</FormLabel>
+                    
+                        </Box>  
+                        <Box sx={{
+                                display: 'flex'
+                            }}>    
+                             <Switch color="secondary" size='h2' name={beneficiaryToggle.name} label={beneficiaryToggle.label} />            
+                    <FormLabel style={{ fontSize: '1.5rem' }} className="gradient__text">Allow Beneficiary to view accounting?</FormLabel>
+                   
+                        </Box> 
+                </Box>
+                </Box>
+                <div className="table">
+                    <table className="styled-table">
+                    <thead>
+                        <tr>
+                        <th>Date</th>
+                        <th>Annuity in U.S. Dollars</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                        <td>01/02/2023</td>
+                        <td>{firstPaymentVar}</td>
+                        </tr>
+                    <tr className="active-row">
+                        <td>01/02/2024</td>
+                        <td>$5150</td>
+                    </tr>
+                    </tbody>
+                    </table>
+                </div>
             </Box>
           </Box>
     </>

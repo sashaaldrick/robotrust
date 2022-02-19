@@ -11,32 +11,36 @@ export function ETHInput(props) {
     return (
       <Box sx={{
           display: 'flex',
-          flexDirection: 'column',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
           marginX: '0',
       }}>
         <Box 
         sx={{
             display: 'flex',
-            justifyContent: 'space-between'
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            width: '40%'
         }}>
             <Field {...field} {...props} />
             {meta.error && meta.touched && <div>{meta.error}</div>}
-            <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-            }}>
-                <FormLabel label="Amount in USD" style={{color: '#FF8A71'}}>Approximate Value in USD:</FormLabel>
-                <Typography variant="h5" component="h5" style={{color: '#FF8A71'}}>
-                    ${USD}
+            <Box>
+                <Typography style={{color: '#FF8A71'}}> 
+                    The ETH/USD value is an estimate. Due to slippage, the value of your contribution may differ at the time the contract is signed.
                 </Typography>
             </Box>
         </Box>
-        <Box>
-            <Typography style={{color: '#FF8A71'}}> 
-                The ETH/USD value is an estimate. Due to slippage, the value of your contribution may differ at the time the contract is signed.
-            </Typography>
+        <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            width: '40%'
+            }}>
+                <FormLabel label="Amount in USD" style={{color: '#FF8A71', fontSize: '1.5rem'}} className="gradient__text">Value in USD</FormLabel>
+                <Typography variant="h5" component="h5" style={{color: '#FF8A71', marginTop: '1rem'}}>
+                    ${USD}
+                </Typography>
         </Box>
       </Box>
     );
