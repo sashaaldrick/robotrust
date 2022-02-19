@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@chainlink/contracts": "^0.4.0",
+    "@mui/material": "^5.4.2",
     "@openzeppelin/contracts": "^4.4.2",
     "@reduxjs/toolkit": "^1.7.2",
     "@testing-library/jest-dom": "^5.16.2",

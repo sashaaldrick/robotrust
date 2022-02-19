@@ -241,7 +241,6 @@
 .interest-disclaimer {
     display: flex;
     flex-direction: column;
-
 }
 
 .value-disclaimer p,
@@ -266,6 +265,7 @@
     padding-top: 0.5rem;
     margin-top: 0.5rem; 
     margin-right: 70%;
+    
     /* border: none;
     background: var(--gradient-bar);
 

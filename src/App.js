@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react';
-import { Footer, Header, Client } from './containers';
+import { Footer, Header, Client } from './components';
 import { Navbar } from './components';
 import store from './state'
 import { Provider as ReduxProvider } from 'react-redux'
