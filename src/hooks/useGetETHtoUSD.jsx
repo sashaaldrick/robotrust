@@ -8,7 +8,7 @@ const useGetETHtoUSD = (amount) => {
         (async () => {// a function to call chainlink price feed and set 'usdAmount' variable to value of eth typed in the input box in USD.
         // check for metamask injected objected.
         const { ethereum } = window;
-    
+
         let provider;
         if (ethereum) {
           // if metamask is available, use metamask
