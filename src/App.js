@@ -4,6 +4,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import { theme } from './theme'
 import store from './state'
 import { Provider as ReduxProvider } from 'react-redux'
+import Client from './components/client/ClientOLD'
 import './App.css';
 import GRATClientForm from './components/form/GRATClientForm';
 
@@ -33,15 +34,17 @@ function App() {
             </div>
             {clientRequested 
             ? 
+            <>
             <GRATClientForm />
-            //  <Client 
-            //      currentAccount={currentAccount} 
-            //      setCurrentAccount={setCurrentAccount}
-            //      accountFound={accountFound}
-            //      setAccountFound={setAccountFound}
-            //      connectButtonClicked={connectButtonClicked}
-            //      setConnectButtonClicked={setConnectButtonClicked}
-            //    />
+             <Client 
+                 currentAccount={currentAccount} 
+                 setCurrentAccount={setCurrentAccount}
+                 accountFound={accountFound}
+                 setAccountFound={setAccountFound}
+                 connectButtonClicked={connectButtonClicked}
+                 setConnectButtonClicked={setConnectButtonClicked}
+               />
+            </>
             : ''
             }
             {/* <RoboTrust /> */}

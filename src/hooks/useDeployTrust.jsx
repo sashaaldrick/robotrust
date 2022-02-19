@@ -13,7 +13,16 @@ const useDeployTrust = async () => {
     const { store } = useContext(ReactReduxContext);
     const GRATFormVariables = store.getState();
 
-    console.log(GRATFormVariables);
+    console.log('GRATFormVariables', GRATFormVariables);
+    const isFilledOut = Object.values(GRATFormVariables.app.GRAT).filter((val) => {
+      return val !== "";
+    })
+    let hasEmptyFields = false
+    for (let i = 0; i < isFilledOut.length; i++) {
+      if (isFilledOut[i] === "") {
+        hasEmptyFields = true
+      }
+    }
 
     let provider;
     if (ethereum) {
