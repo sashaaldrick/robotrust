@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from 'react';
-import { Navbar, Footer, Header, Client } from './components';
+import { Navbar, Footer, Header } from './components';
 import { ThemeProvider } from '@mui/material/styles'
 import { theme } from './theme'
 import store from './state'
