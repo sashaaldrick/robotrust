@@ -2,6 +2,7 @@ import  React, { Component } from 'react';
 import { useState, useEffect, useContext } from 'react';
 import useSetGRAT from "../../hooks/useSetGRAT";
 import useGetETHtoUSD from '../../hooks/useGetETHtoUSD';
+import { InputField as Field } from '../form/fields/input';
 import './client.css';
 
 import metamaskIcon from '../../assets/metamask.svg';
@@ -10,10 +11,6 @@ import { ethers } from 'ethers';
 
 const Client = props => {
   // set client state
-  const [GRAT, setGRAT] = useSetGRAT();
-  console.log('GRAT!!!', GRAT);
-  const amountUSD = useGetETHtoUSD();
-  console.log('usd', amountUSD);
   const [usdAmount, setUsdAmount] = useState(0);
   const [noOfPayouts, setNoOfPayouts] = useState(0);
   const [trusteeAddress, setTrusteeAddress] = useState('');
@@ -168,6 +165,15 @@ const Client = props => {
       </div>
       <div className="eth-amount"> 
         <h1 className="gradient__text"> Enter ETH Amount: </h1>
+        <Box>
+          <Field
+            size={""}
+            textarea={false}
+            name={ethAmount.name}
+            label={ethAmount.label}
+            placeholder="track name"
+          />
+        </Box>
         <input onChange={e => ethToUSD(e.target.value)} type="text" placeholder="ETH Amount..." />
       </div>
       
