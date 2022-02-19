@@ -1,10 +1,11 @@
 import {
     FormControl,
     Input,
-    FormLabel
+    FormLabel,
+    Typography
   } from "@mui/material";
   import { useField } from "formik";
-  import React, { useEffect } from "react";
+  import React from "react";
   
   export const InputField = ({
     size: _,
@@ -12,11 +13,10 @@ import {
   }) => {
     const { errorText, ...rest } = props;
     const [field, meta] = useField(props);
-    // console.log('field', field)
 
     return (
     <FormControl>
-        <FormLabel label={props.label}>{props.label}</FormLabel>
+      <FormLabel style={{ fontSize: '1.5rem' }} className="gradient__text">{props.label}</FormLabel>
         <Input
           {...rest}
           {...field}

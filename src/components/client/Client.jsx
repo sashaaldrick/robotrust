@@ -165,15 +165,6 @@ const Client = props => {
       </div>
       <div className="eth-amount"> 
         <h1 className="gradient__text"> Enter ETH Amount: </h1>
-        <Box>
-          <Field
-            size={""}
-            textarea={false}
-            name={ethAmount.name}
-            label={ethAmount.label}
-            placeholder="track name"
-          />
-        </Box>
         <input onChange={e => ethToUSD(e.target.value)} type="text" placeholder="ETH Amount..." />
       </div>
       
