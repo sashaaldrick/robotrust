@@ -4,19 +4,24 @@ require("./models/payment.js");
 const { trustFromContract, trustFromContractBeneficiary } = require("./models/trust.js");
 
 const RoboTrust = require('../src/artifacts/contracts/RoboTrust.sol/RoboTrust.json');
+const RoboTrustDeployer = require('../src/artifacts/contracts/RoboTrustDeployer.sol/RoboTrustDeployer.json');
 
 async function main() {
     // set up keys and provider.
     const apiKey = process.env.INFURA_API_KEY;
-    const privKey = process.env.DEVNET_PRIVKEY_TEST;
+    const privKey = process.env.DEVNET_PRIVKEY;
     provider = new ethers.providers.InfuraProvider("arbitrum-rinkeby", apiKey);
     let wallet = new ethers.Wallet(privKey, provider);
     console.log('Your wallet address:', wallet.address);
 
-    const trustContract = new ethers.Contract("0x9a437Da5Ced3623247dB2d19b2a5ae44B4620531", RoboTrust.abi, wallet);
+    //const deployerContract = new ethers.Contract("0x46e8EF46678185768549193968a3290101fcf574", RoboTrustDeployer.abi, wallet);
+    //console.log("Trusts for user: %s", (await deployerContract.ownerToTrusts(wallet.address, 1)));
+    
+    const trustContract = new ethers.Contract("0xA207e6997C3053b2B8545aCA519A6b6c5bc75c06", RoboTrust.abi, wallet);
     //const trustData = trustFromContract((await trustContract.getTrustData()));
-    const trustData = trustFromContractBeneficiary((await trustContract.getTrustDataBeneficiary()));
+    const trustData = trustFromContract((await trustContract.getTrustData()));
     console.log("Trust Data: %s", trustData);
+    
     /*
     const owner = (await trustContract.getOwnerAddress()).toString();
     
@@ -54,11 +59,11 @@ async function main() {
         }
       }
     
-    checkUpkeep();
+    await checkUpkeep();
     
 
     //await trustContract.withdraw({gasLimit: 10000000});
-   //await trustContract.liquidate({gasLimit: 10000000});
+   await trustContract.liquidate({gasLimit: 10000000});
    //await trustContract.changeTrustee("0x964D1F946fA32dA8767c28C31Bf99920B01A2b10", {gasLimit: 10000000});
 }
 
