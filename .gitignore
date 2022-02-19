@@ -3,6 +3,7 @@
 .pnp.js
 surge.key
 surge.crt
+surge.pem
 
 # testing
 /coverage
