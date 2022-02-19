@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit'
 import { updateGRAT } from './actions'
 
-const initialState = {
+export const initialState = {
   GRAT: {
     usdAmount: 0,
     noOfPayouts: 0,

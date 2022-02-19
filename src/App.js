@@ -1,9 +1,11 @@
 import { React, useState, useEffect } from 'react';
-import { Footer, Header, Client } from './components';
-import { Navbar } from './components';
+import { Navbar, Footer, Header, Client } from './components';
+import { ThemeProvider } from '@mui/material/styles'
+import { theme } from './theme'
 import store from './state'
 import { Provider as ReduxProvider } from 'react-redux'
 import './App.css';
+import GRATClientForm from './components/form/GRATClientForm';
 
 function App() {
   const [clientRequested, setClientRequested] = useState(false);
@@ -12,37 +14,41 @@ function App() {
   const [connectButtonClicked, setConnectButtonClicked] = useState(false);
   
   return (
-  <ReduxProvider store={store}>
-    <div className="App">
-        <div className="gradient__bg">
-            <Navbar 
-              currentAccount={currentAccount} 
-              setCurrentAccount={setCurrentAccount}
-              accountFound={accountFound}
-              setAccountFound={setAccountFound}
-              connectButtonClicked={connectButtonClicked}
-              setConnectButtonClicked={setConnectButtonClicked}
-            />
-            <Header 
-            clientRequested={clientRequested}
-            setClientRequested={setClientRequested} 
-            />
+  <ThemeProvider theme={theme}>
+      <ReduxProvider store={store}>
+        <div className="App">
+            <div className="gradient__bg">
+                <Navbar 
+                  currentAccount={currentAccount} 
+                  setCurrentAccount={setCurrentAccount}
+                  accountFound={accountFound}
+                  setAccountFound={setAccountFound}
+                  connectButtonClicked={connectButtonClicked}
+                  setConnectButtonClicked={setConnectButtonClicked}
+                />
+                <Header 
+                clientRequested={clientRequested}
+                setClientRequested={setClientRequested} 
+                />
+            </div>
+            {clientRequested 
+            ? 
+            <GRATClientForm />
+            //  <Client 
+            //      currentAccount={currentAccount} 
+            //      setCurrentAccount={setCurrentAccount}
+            //      accountFound={accountFound}
+            //      setAccountFound={setAccountFound}
+            //      connectButtonClicked={connectButtonClicked}
+            //      setConnectButtonClicked={setConnectButtonClicked}
+            //    />
+            : ''
+            }
+            {/* <RoboTrust /> */}
+            <Footer />
         </div>
-        {clientRequested 
-         ? <Client 
-             currentAccount={currentAccount} 
-             setCurrentAccount={setCurrentAccount}
-             accountFound={accountFound}
-             setAccountFound={setAccountFound}
-             connectButtonClicked={connectButtonClicked}
-             setConnectButtonClicked={setConnectButtonClicked}
-           />
-         : ''
-        }
-        {/* <RoboTrust /> */}
-        <Footer />
-    </div>
-    </ReduxProvider>
+      </ReduxProvider>
+    </ThemeProvider>
   )
 };
 

@@ -2,15 +2,23 @@ import  React, { Component } from 'react';
 import { useState, useEffect, useContext } from 'react';
 import useSetGRAT from "../../hooks/useSetGRAT";
 import useGetETHtoUSD from '../../hooks/useGetETHtoUSD';
-import { InputField as Field } from '../form/fields/input';
 import './client.css';
 
+import Feature from '../../components/feature/Feature';
 import metamaskIcon from '../../assets/metamask.svg';
 
 import { ethers } from 'ethers';
 
+
+
+
+
 const Client = props => {
   // set client state
+  const [GRAT, setGRAT] = useSetGRAT();
+  console.log('GRAT!!!', GRAT);
+  const amountUSD = useGetETHtoUSD();
+  console.log('usd', amountUSD);
   const [usdAmount, setUsdAmount] = useState(0);
   const [noOfPayouts, setNoOfPayouts] = useState(0);
   const [trusteeAddress, setTrusteeAddress] = useState('');
@@ -22,6 +30,11 @@ const Client = props => {
   const [beneficiaryToggle, setBeneficiaryToggle] = useState(false);
   const [interestRate, setInterestRate] = useState(0);
   const [firstPayment, setFirstPayment] = useState(0);
+
+  function useForceUpdate(){
+    const [value, setValue] = useState(0); // integer state
+    return () => setValue(value => value + 1); // update the state to force render
+  }
 
   function GetFirstPayment(presentValue = 0, interestRate = 0, gradingPercent = 0, numberOfYears = 2) {
     console.log("In getFirstPayment function!");
@@ -49,9 +62,9 @@ const Client = props => {
     return(
       <div className="connected-account">
         <img src={metamaskIcon} alt="Metamask Icon" />
-        {props.accountFound 
+        {props.accountFound && props.connectButtonClicked 
          ? <p> {slicedAddress} </p>
-         : ''
+         : <p> Please install Metamask! </p>
         }
       </div>
     );
@@ -156,6 +169,7 @@ const Client = props => {
   return (
     <div className="client section-margin" id="client">
       <div className="client-feature"> 
+        <Feature title="Create a GRAT"/>   
         <div className="connect-wallet">  
           {props.accountFound 
             ? <ConnectedAccountInfo />
@@ -165,15 +179,6 @@ const Client = props => {
       </div>
       <div className="eth-amount"> 
         <h1 className="gradient__text"> Enter ETH Amount: </h1>
-        <Box>
-          <Field
-            size={""}
-            textarea={false}
-            name={ethAmount.name}
-            label={ethAmount.label}
-            placeholder="track name"
-          />
-        </Box>
         <input onChange={e => ethToUSD(e.target.value)} type="text" placeholder="ETH Amount..." />
       </div>
       
@@ -215,7 +220,7 @@ const Client = props => {
 
         <div className="interest-disclaimer"> 
           <div className="retained-interest"> 
-            <h1 className="gradient__text"> Retained Interest: </h1>
+            <h1 className="gradient__text"> Retained Interest (Annuity): </h1>
             <input onChange={e => {setRetainedInterest(e.target.value);
                                    GetFirstPayment(+retainedInterest, +interestRate, +graduatedPercentage, +termInYears)}} type="text" placeholder="0" />
           </div>
