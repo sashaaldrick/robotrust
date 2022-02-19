@@ -3,6 +3,8 @@ import { Formik, Form } from "formik";
 import React, { useState, createContext } from "react";
 import useSetGRAT from "../../hooks/useSetGRAT";
 
+import useDeployTrust from "../../hooks/useDeployTrust";
+
 import { AmountForm } from "./AmountForm";
 
 import initialValues from "./helpers/formInitialValues";
@@ -37,6 +39,7 @@ const GRATPage = () => {
     } else {
       setGRAT(values);
     }
+
   }
 
   return (
