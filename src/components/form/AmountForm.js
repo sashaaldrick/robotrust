@@ -6,12 +6,8 @@ import { SelectField as Select } from './fields/select'
 import { ETHInput } from './fields/ETHInput'
 
 export const AmountForm = ({ formField, formProps }) => {
-    //   const [field, meta] = useField(formProps)
-    const [beneficiaryVis, setBeneficiaryVis] = useState(false);
   const {termInYears, ethAmount, trusteeAddress, beneficiaryAddress, retainedInterest, graduatedToggle, beneficiaryToggle, interestRate, firstPayment } = formField
-  const updateBeneficiaryToggle = () => {
-      setBeneficiaryVis(!beneficiaryVis)
-  }
+
   return (
     <>
         <Box
@@ -22,7 +18,6 @@ export const AmountForm = ({ formField, formProps }) => {
             borderRadius: '1rem',
             display: 'flex',
           }}
-          className="client"
         >
             <Box
               sx={{
@@ -103,32 +98,8 @@ export const AmountForm = ({ formField, formProps }) => {
                         <Typography style={{color: '#FF8A71'}}>Warning: Setting this value lower than ‘2’ may result in nonrecognition by the IRS.</Typography>
                     </Box>
                 </Box>
-                <Typography>Interest Rate: 1.69%</Typography>
-                <Switch {...label} />
-                <div>
-                <label className='switch'>
-                    <Typography className="gradient__text"> Allow Beneficiary to view accounting? </Typography>
-                    <Field type="checkbox" name={beneficiaryToggle.name} label={beneficiaryToggle.label} />
-                    {/* <span className="slider round"></span> */}
-                    {`${beneficiaryToggle.toggle}`}
-                </label>
-                </div>
-                <Field 
-                    name={graduatedToggle.name}
-                    label={graduatedToggle.label}
-                    placeholder={graduatedToggle.placeholder}
-                />
-                <Field 
-                    name={graduatedToggle.name}
-                    label={graduatedToggle.label}
-                    placeholder={graduatedToggle.placeholder}
-                />
-                  <Select 
-                    size={''}
-                    name={termInYears.name}
-                    placeholder={termInYears.label}
-                    label={termInYears.label}
-                  />
+                <Typography style={{color: '#FF8A71'}}>Interest Rate: 1.69%</Typography>
+                <Switch color="secondary" name={beneficiaryToggle.name} label={beneficiaryToggle.label} />
             </Box>
           </Box>
     </>

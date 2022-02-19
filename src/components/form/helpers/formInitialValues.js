@@ -4,16 +4,16 @@ const {
 } = GRATFormModel
 
 const initialValues = {
-    [ethAmount]: '',
-    [usdAmount]: '',
-    [trusteeAddress]: '',
-    [beneficiaryAddress]: '', 
-    [beneficiaryToggle]: false,
-    [retainedInterest]: '',
-    [graduatedToggle]: false,
-    [termInYears]: '',
-    [interestRate]: '',
-    [firstPayment]: '',
+    [ethAmount.name]: '',
+    [usdAmount.name]: '',
+    [trusteeAddress.name]: '',
+    [beneficiaryAddress.name]: '', 
+    [beneficiaryToggle.name]: false,
+    [retainedInterest.name]: '',
+    [graduatedToggle.name]: false,
+    [termInYears.name]: '',
+    [interestRate.name]: '',
+    [firstPayment.name]: '',
 }
 
 export default initialValues

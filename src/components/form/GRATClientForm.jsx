@@ -1,6 +1,7 @@
 import { Box, Button } from "@mui/material";
 import { Formik, Form } from "formik";
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
+import useDeployTrust from "../../hooks/useDeployTrust";
 import useSetGRAT from "../../hooks/useSetGRAT";
 
 import { AmountForm } from "./AmountForm";
@@ -25,10 +26,9 @@ function _renderStepContent(step, formProps) {
 
 const GRATPage = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const [, setGRAT] = useSetGRAT();
+  const [GRAT, setGRAT] = useSetGRAT();
 //   const currentValidationSchema = validationSchema[activeStep];
   const isLastStep = activeStep === steps.length - 1;
-  console.log('isLastStep', isLastStep)
   function _handleSubmit(values, actions) {
     if (!isLastStep) {
       setActiveStep(activeStep + 1);
@@ -38,9 +38,9 @@ const GRATPage = () => {
       setGRAT(values);
     }
   }
-
+  useDeployTrust()
   return (
-      <Box sx={{ p: 1, m: 1 }}>
+      <Box sx={{ p: 1, m: 1 }} className="client">
         <Formik
           initialValues={initialValues}
           // validationSchema={currentValidationSchema}
