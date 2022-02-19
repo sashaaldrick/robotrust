@@ -1,6 +1,8 @@
 /node_modules
 /.pnp
 .pnp.js
+surge.key
+surge.crt
 
 # testing
 /coverage
