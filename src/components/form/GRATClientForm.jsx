@@ -1,10 +1,9 @@
 import { Box, Button } from "@mui/material";
 import { Formik, Form } from "formik";
 import React, { useState, createContext, useEffect } from "react";
-import useDeployTrust from "../../hooks/useDeployTrust";
+import deployTrust from "../../utils/deployTrust";
 import useSetGRAT from "../../hooks/useSetGRAT";
 
-import useDeployTrust from "../../hooks/useDeployTrust";
 
 import { AmountForm } from "./AmountForm";
 
@@ -39,9 +38,9 @@ const GRATPage = () => {
     } else {
       setGRAT(values);
     }
-
+    // console.log(values);
+    deployTrust(values);
   }
-  useDeployTrust()
   return (
       <Box sx={{ p: 1, m: 1 }} className="client">
         <Formik
