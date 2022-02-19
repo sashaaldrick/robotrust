@@ -4,6 +4,8 @@
 surge.key
 surge.crt
 surge.pem
+privkey.pem
+fullchain.pem
 
 # testing
 /coverage
