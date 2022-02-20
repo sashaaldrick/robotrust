@@ -16,8 +16,9 @@ const deployTrust = async (values) => {
             retainedInterest,
             termInYears,
             trusteeAddress,
+            graduatedPercentage,
             usdAmount } = values;
-
+    console.log("graduatedPercentage: " + graduatedPercentage);
     console.log("BeneficiaryAddress: " + beneficiaryAddress);
     console.log("beneficiaryToggle: " + beneficiaryToggle);
     console.log("ethAmount: " + ethAmount);
@@ -31,21 +32,6 @@ const deployTrust = async (values) => {
 
     const { ethereum } = window;
 
-    // const { store } = useContext(ReactReduxContext);
-    // const GRATFormVariables = store.getState();
-
-    // console.log('GRATFormVariables', GRATFormVariables);
-    // const isFilledOut = Object.values(GRATFormVariables.app.GRAT).filter((val) => {
-    //   return val !== "";
-    // })
-    // let hasEmptyFields = false
-    // for (let i = 0; i < isFilledOut.length; i++) {
-    //   if (isFilledOut[i] === "") {
-    //     hasEmptyFields = true
-    //   }
-    // }
-
-    
     let provider;
     if (ethereum) {
       // use metamask as provider

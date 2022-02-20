@@ -1,15 +1,24 @@
-import { Box, Typography, Divider, Switch, FormLabel } from '@mui/material'
-import React from 'react'
-
+import { Box, Typography, Divider, Switch, FormLabel, FormControlLabel } from '@mui/material'
+import React, { useState } from 'react'
+import { Field as Checkbox } from 'formik'
 import { InputField as Field } from './fields/input'
 import { SelectField as Select } from './fields/select'
 import { ETHInput } from './fields/ETHInput'
 import useCalculateFirstPayment from '../../hooks/useCalculateFirstPayment'
 
 export const AmountForm = ({ formField, formProps }) => {
-  const {termInYears, ethAmount, trusteeAddress, beneficiaryAddress, retainedInterest, graduatedToggle, beneficiaryToggle, interestRate, firstPayment } = formField
-    const [firstPaymentVar] = useCalculateFirstPayment(retainedInterest, interestRate, 20, termInYears)
-  return (
+    const {termInYears, ethAmount, trusteeAddress, beneficiaryAddress, retainedInterest, graduatedToggle, beneficiaryToggle, graduatedPercentage } = formField
+    const [toggleBeneficiary, setToggleBeneficiary] = useState(false)
+    const [toggleGraduated, setToggleGraduated] = useState(false);
+    const handleToggleBeneficiary = (event) => {
+        setToggleBeneficiary(event.target.checked)
+    };
+
+    const handleToggleGraduated = (event) => {
+        setToggleGraduated(event.target.checked)
+    };
+
+    return (
     <>
         <Box
           sx={{
@@ -45,7 +54,7 @@ export const AmountForm = ({ formField, formProps }) => {
                     <Box sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        width: '40%',
+                        width: '45%',
                     }}>
                         <Field 
                             name={trusteeAddress.name}
@@ -61,7 +70,7 @@ export const AmountForm = ({ formField, formProps }) => {
                     <Box sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        width: '40%'
+                        width: '45%'
                     }}>
                         <Field 
                             name={beneficiaryAddress.name}
@@ -77,7 +86,7 @@ export const AmountForm = ({ formField, formProps }) => {
                     <Box sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        width: '40%',
+                        width: '45%',
                     }}>
                         <Field 
                             name={retainedInterest.name}
@@ -89,7 +98,7 @@ export const AmountForm = ({ formField, formProps }) => {
                     <Box sx={{
                         display: 'flex',
                         flexDirection: 'column',
-                        width: '40%'
+                        width: '45%'
                     }}>
                         <Field 
                             name={termInYears.name}
@@ -109,48 +118,48 @@ export const AmountForm = ({ formField, formProps }) => {
                         flexDirection: 'column'
                     }}>
                 <FormLabel style={{ fontSize: '1.5rem' }} className="gradient__text">Interest Rate</FormLabel>
-                <Typography style={{color: '#FF8A71'}}>1.6%</Typography>
+                <Typography style={{color: '#FF8A71', fontSize: "1.5rem" }}>1.6%</Typography>
                     </Box>
                 <Box sx={{
                         display: 'flex',
                         flexDirection: 'column',
                         width: '45%'}}>
-                            <Box sx={{
-                                display: 'flex'
-                            }}>
-                                <Switch color="secondary" size='h2' name={graduatedToggle.name} label={graduatedToggle.label} />
-                    <FormLabel style={{ fontSize: '1.5rem' }} className="gradient__text">Increasing Annuity Payments?</FormLabel>
-                    
+                     <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column'
+                    }}>
                         </Box>  
                         <Box sx={{
                                 display: 'flex'
-                            }}>    
-                             <Switch color="secondary" size='h2' name={beneficiaryToggle.name} label={beneficiaryToggle.label} />            
-                    <FormLabel style={{ fontSize: '1.5rem' }} className="gradient__text">Allow Beneficiary to view accounting?</FormLabel>
-                   
+                            }}>
+                                {/* <label className="switch">
+                                    <input type="checkbox" onChange={e => setToggleGraduated(!graduatedToggle)} />
+                                    <span className="slider round"></span>
+                                </label> */}
+                            <FormLabel style={{ fontSize: '1.5rem' }} className="gradient__text">Allow Beneficiary to view accounting?</FormLabel>    
+                             <Switch color="secondary" size='h2' name={beneficiaryToggle.name} label={beneficiaryToggle.label} onChange={handleToggleBeneficiary} checked={toggleBeneficiary} value={toggleBeneficiary} inputProps={{ 'aria-label': 'uncontrolled' }} />            
                         </Box> 
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'row'
+                    }}>
+                        <FormLabel style={{ fontSize: '1.5rem' }} className="gradient__text">Increasing Annuity Payments?</FormLabel>
+                        <Switch color="secondary" size='h2' name={graduatedToggle.name} label={graduatedToggle.label} onChange={handleToggleGraduated} checked={toggleGraduated} value={toggleGraduated} inputProps={{ 'aria-label': 'uncontrolled' }} />
+                    </Box>
+                    { toggleGraduated 
+                        ? 
+                        <Box>
+                        <Field 
+                            name={graduatedPercentage.name}
+                            label={graduatedPercentage.label}
+                            placeholder={graduatedPercentage.placeholder}
+                        />
+                         <Typography style={{color: '#FF8A71'}}> Warning: Setting the graduation rate higher than 20% may result in nonrecognition by the IRS. </Typography> 
+                        </Box>
+                        : ''
+                    }
                 </Box>
                 </Box>
-                <div className="table">
-                    <table className="styled-table">
-                    <thead>
-                        <tr>
-                        <th>Date</th>
-                        <th>Annuity in U.S. Dollars</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <td>01/02/2023</td>
-                        <td>{firstPaymentVar}</td>
-                        </tr>
-                    <tr className="active-row">
-                        <td>01/02/2024</td>
-                        <td>$5150</td>
-                    </tr>
-                    </tbody>
-                    </table>
-                </div>
             </Box>
           </Box>
     </>

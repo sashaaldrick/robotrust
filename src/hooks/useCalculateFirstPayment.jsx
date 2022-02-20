@@ -1,9 +1,13 @@
 import { useEffect, useState } from 'react'
+import { useSetGRAT } from './useSetGRAT'
 
-const useCalculateFirstPayment = (retainedInterest, interestRate, gradingPercent, termInYears) => {
-    const [firstPaymentVar, setFirstPaymentVar] = useState();
+const useCalculateFirstPayment = () => {
+
+    const [GRAT] = useSetGRAT()
+    const { retainedInterest, graduatedPercentage, termInYears } = GRAT
+    const interestRate = 0.017
     function getFirstPayment(retainedInterest, interestRate, gradingPercent, termInYears) {
-        return ((interestRate - gradingPercent) * retainedInterest) / (1 - (((1 + gradingPercent)/(1 + interestRate))**termInYears))
+        return ((interestRate - gradingPercent) * parseInt(retainedInterest)) / (1 - (((1 + gradingPercent)/(1 + interestRate))**termInYears))
       }
   
     function getPayments(firstPayment, termInYears, gradingPercent) {
@@ -14,17 +18,19 @@ const useCalculateFirstPayment = (retainedInterest, interestRate, gradingPercent
         return payments;
     }
 
-    useEffect(() => {
-        const firstPayment = getFirstPayment(retainedInterest, interestRate, gradingPercent, termInYears)
-        const paymentsArr = getPayments(firstPayment, termInYears, gradingPercent)
-        console.log('paymentsArr', firstPayment)
-        console.log("interestRate: " + interestRate);
-        console.log("retainedInterest: " + retainedInterest);
-        console.log("termInYears: " + termInYears);
-        setFirstPaymentVar(paymentsArr)
-    }, [setFirstPaymentVar, retainedInterest, interestRate, gradingPercent, termInYears])
+        const firstPayment = getFirstPayment(+retainedInterest, +interestRate, +(graduatedPercentage/100), +termInYears)
+        const paymentsArr = getPayments(+firstPayment, +termInYears, +(graduatedPercentage/100))
+        // console.log('typeof retainedInterest', typeof retainedInterest)
+        // console.log('typeof gradingPercent', typeof gradingPercent)
+        // console.log('typeof termInYears', typeof termInYears)
+        // console.log('firstPayment', firstPayment)
+        // console.log('gradingPercent', graduatedPercentage)
+        // console.log("interestRate: " + interestRate)
+        // console.log("retainedInterest: " + retainedInterest)
+        // console.log("termInYears: " + termInYears)
+        // console.log('paymentsArr', paymentsArr)
 
-    return [firstPaymentVar]
+    return [paymentsArr]
 }
 
 export default useCalculateFirstPayment

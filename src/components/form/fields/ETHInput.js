@@ -20,7 +20,7 @@ export function ETHInput(props) {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            width: '40%'
+            width: '45%'
         }}>
             <Field {...field} {...props} />
             {meta.error && meta.touched && <div>{meta.error}</div>}
@@ -35,7 +35,7 @@ export function ETHInput(props) {
             flexDirection: 'column',
             justifyContent: 'flex-start',
             alignItems: 'center',
-            width: '40%'
+            width: '45%'
             }}>
                 <FormLabel label="Amount in USD" style={{color: '#FF8A71', fontSize: '1.5rem'}} className="gradient__text">Value in USD</FormLabel>
                 <Typography variant="h5" component="h5" style={{color: '#FF8A71', marginTop: '1rem'}}>
