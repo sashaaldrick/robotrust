@@ -36,14 +36,14 @@ function App() {
             ? 
             <>
             <GRATClientForm />
-             <Client 
+             {/* <Client 
                  currentAccount={currentAccount} 
                  setCurrentAccount={setCurrentAccount}
                  accountFound={accountFound}
                  setAccountFound={setAccountFound}
                  connectButtonClicked={connectButtonClicked}
                  setConnectButtonClicked={setConnectButtonClicked}
-               />
+               /> */}
             </>
             : ''
             }

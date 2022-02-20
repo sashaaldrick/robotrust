@@ -1,6 +1,11 @@
 const GRATFormModel = {
     formId: 'GRATForm',
     formField: {
+      graduatedPercentage: {
+        name: 'graduatedPercentage',
+        label: 'Graduated Percentage',
+        required: 'Graduated Percentage is required'
+      },
       beneficiaryToggle: {
         name: 'beneficiaryToggle',
         label: 'Beneficiary Toggle',
@@ -33,7 +38,7 @@ const GRATFormModel = {
       },
       graduatedToggle: {
         name: 'graduatedToggle',
-        label: 'Graduated Toggle',
+        label: 'Increasing Annuity Payments?',
       },
       termInYears: {
         name: 'termInYears',

@@ -1,4 +1,5 @@
-import { createTheme } from '@mui/material/styles'
+import { createTheme } from '@mui/material/styles';
+import Manrope from './assets/Manrope-SemiBold.ttf';
 
 export const theme = createTheme({
     palette: {
@@ -23,6 +24,12 @@ export const theme = createTheme({
       // E.g., shift from Red 500 to Red 300 or Red 700.
       tonalOffset: 0.2,
     },
+      typography: {
+        fontFamily: [
+          'BlinkMacSystemFont',
+          'sans-serif',
+        ].join(','),
+     },
     breakpoints: {
       values: {
         xs: 0,

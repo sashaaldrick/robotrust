@@ -34,8 +34,9 @@ const deployTrust = async (values) => {
             retainedInterest,
             termInYears,
             trusteeAddress,
+            graduatedPercentage,
             usdAmount } = values;
-
+    console.log("graduatedPercentage: " + graduatedPercentage);
     console.log("BeneficiaryAddress: " + beneficiaryAddress);
     console.log("beneficiaryToggle: " + beneficiaryToggle);
     console.log("ethAmount: " + ethAmount);
