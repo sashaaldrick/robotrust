@@ -1,4 +1,4 @@
-import payment  from './payment.js';
+import { Payment, processPaymentData } from './payment.js';
 import { ethers } from 'ethers';
 
 export class Trust {
@@ -13,9 +13,9 @@ export class Trust {
             this.showBeneficiaryAccounting = showBeneficiaryAccounting;
             this.gift = gift;
             this.annuityPV = annuityPV;
-            this.initialGrant = payment.processPaymentData([initialGrant]);
+            this.initialGrant = processPaymentData([initialGrant]);
             this.paymentAmounts = paymentAmounts;
-            this.payments = payment.processPaymentData(payments);
+            this.payments = processPaymentData(payments);
         }
     
         toString() {
@@ -69,7 +69,7 @@ export class BeneficiaryTrust {
             Trustee: ${this.trustee}
             Contract Address: ${this.contractAddress}
             Amount Remaining: ${ethers.utils.formatUnits(this.amountRemaining, 18)}
-            Payments: ${payment.processPaymentData(this.payments)}
+            Payments: ${processPaymentData(this.payments)}
             Started Timestamp: ${this.startedTimestamp}
             Number of Years: ${this.numberOfYears}
             `;

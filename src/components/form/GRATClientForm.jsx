@@ -3,8 +3,8 @@ import { Formik, Form } from "formik";
 import React, { useState, createContext } from "react";
 import deployTrust from "../../utils/deployTrust";
 import useSetGRAT from "../../hooks/useSetGRAT";
-import SigningForm from './SigningForm'
-
+import SigningForm from './SigningForm';
+import DataDisplay from './DataDisplay';
 
 import { AmountForm } from "./AmountForm";
 
@@ -32,22 +32,29 @@ function _renderStepContent(step, formProps, values, trustData) {
 const GRATPage = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [GRAT, setGRAT] = useSetGRAT();
-  var trustData;
-//   const currentValidationSchema = validationSchema[activeStep];
+  const [trustData, setTrustData] = useState({});
+  const [loading, setLoading] = useState(false);
+
   const isLastStep = activeStep === steps.length - 1;
   async function _handleSubmit(values, actions) {
-    if (activeStep[0]) {
+    
+    if (activeStep == 0) {
       setGRAT(values);
       setActiveStep(activeStep + 1);
       actions.setTouched({});
       actions.setSubmitting(false);
-    } else if (activeStep[1]) {
-      actions.setTouched({});
-      trustData = await deployTrust(values);
-      setActiveStep(activeStep + 1);
-      actions.setSubmitting(true);
-    } else if (activeStep[2]) {
-
+    } else if (activeStep == 1) {
+        setLoading(true);
+        let _trustData = await deployTrust(values);
+        console.log("Before Data Display: " + JSON.stringify(_trustData));
+        setTrustData(_trustData);
+        setActiveStep(activeStep + 1);
+        actions.setTouched({});
+        actions.setSubmitting(true);
+    } else if (activeStep == 2) {
+        // data display.
+        actions.setTouched({});
+        actions.setSubmitting(false);
     }
   }
   return (
@@ -76,9 +83,10 @@ const GRATPage = () => {
                   display: 'flex',
                   justifyContent: 'center'
                 }}>
-                  {isLastStep ? (
+                  {activeStep == 1  ? 
+                  loading ? 
+                  (
                       <Button
-                      type="submit"
                       variant="contained"
                       color="inherit"
                       sx={{
@@ -87,7 +95,7 @@ const GRATPage = () => {
                         fontSize: "1.1rem",
                       }}
                     >
-                      I Understand and Agree
+                      Loading...
                     </Button>
                   ) : (
                     <Button
@@ -100,9 +108,34 @@ const GRATPage = () => {
                       fontSize: "1.1rem",
                     }}
                   >
+                    I Understand and Agree
+                  </Button>
+                  ) 
+                   : activeStep ==  0 ? (
+                    <Button
+                    type="submit"
+                    variant="contained"
+                    color="inherit"
+                    sx={{
+                      width: "25rem",
+                      backgroundColor: "darksalmon",
+                      fontSize: "1.1rem",
+                    }}
+                  >
                     Generate Signing Document
                   </Button>
-                  )}
+                  ) : <Button
+                  variant="contained"
+                  color="inherit"
+                  sx={{
+                    width: "25rem",
+                    backgroundColor: "darksalmon",
+                    fontSize: "1.1rem",
+                  }}
+                  >
+                  Congratulations! Your trust is online!
+                  </Button>
+                }
                 </Box>
               </Form>
           )}

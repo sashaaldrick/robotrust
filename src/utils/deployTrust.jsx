@@ -3,7 +3,7 @@ import RoboTrustDeployer from '../artifacts/contracts/RoboTrustDeployer.sol/Robo
 import RoboTrust from '../artifacts/contracts/RoboTrust.sol/RoboTrust.json';
 
 
-import { trustFromContractData, trustFromContractBeneficiary } from './trust';
+import { trustFromContractData } from './trust';
 
 
 const deployerABI = RoboTrustDeployer.abi;
@@ -60,18 +60,18 @@ const deployTrust = async (values) => {
 
     await provider.send("eth_requestAccounts", []);
     let signer = await provider.getSigner();
-    console.log("Accounts: ", await signer.getAddress());
+    let signerAddress = await signer.getAddress()
 
     // address of test deployer contract on Rinkarby.
     const contractAddress = "0xb716885030FfD2157475457480f9638909FefF92";
     const deployerContract = new ethers.Contract(contractAddress, deployerABI, signer);
 
-    let firstPayment = getFirstPayment(+retainedInterest, 0.017, 0, +termInYears);
-    let payments = getPayments(+firstPayment, +termInYears, 0);
+    let firstPayment = getFirstPayment(+retainedInterest, 0.016, +graduatedPercentage/100, +termInYears);
+    let payments = getPayments(+firstPayment, +termInYears, +graduatedPercentage/100);
 
 
     const parsedPayments = payments.map(payment => ethers.utils.parseEther(payment.toString()));
-    const initialBalance = ethers.utils.parseEther("0.01");
+    const initialBalance = ethers.utils.parseEther(ethAmount.toString());
     const parsedRetainedInterest = ethers.utils.parseEther(retainedInterest.toString());
 
     // arguments to send: (uint256 _period, uint _numberOfYears, uint[] memory _paymentAmounts, uint _annuityPV, address _trustee, address _beneficiary, bool _showAccounting, string memory _disclaimer)
@@ -84,24 +84,23 @@ const deployTrust = async (values) => {
       console.log(err);
     }
 
-    const dev = "0x2D57E5E2bb5ea3BCd001668e3dEf98b6EE040E5E";
-    let indices = await deployerContract.getOwnerTrusts(dev);
+    let indices = await deployerContract.getOwnerTrusts(signerAddress);
 
     let mostRecentIndex = indices[indices.length - 1].toNumber();
     let trustAddress = await deployerContract.trustList(mostRecentIndex);
     console.log("Trust Address: " + trustAddress);
 
     // get individual Contract info
-    const trustContract = new ethers.Contract(contractAddress, trustABI, signer);
+    const trustContract = new ethers.Contract(trustAddress, trustABI, signer);
 
-    // try {
-    //   let trustData = await trustContract.getTrustData();
-    //   console.log(trustFromContractData(trustData));
-
-    // } catch(err) {
-    //   console.log(err);
-    // }
-    return "trustContract"
+    try {
+      let trustDataTx = await trustContract.getTrustData();
+      let trustData = trustFromContractData(trustDataTx);
+      Object.assign(trustData, {trustAddress: trustAddress});
+      return trustData;
+    } catch(err) {
+      console.log(err);
+    }
 }
 
 export default deployTrust;

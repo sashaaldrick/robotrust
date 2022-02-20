@@ -1,6 +1,6 @@
-const { ethers } = require("ethers");
+import { ethers } from 'ethers';
 
-class Payment {
+export class Payment {
     constructor(ethPaid, //WEI
         paymentTimestamp,
         ethPrice, //in USD to 8 Decimals (should we just make this 18 and * 10^10?)
@@ -25,7 +25,7 @@ class Payment {
     }
 }
 
-function processPaymentData(_rawPayments) {
+export function processPaymentData(_rawPayments) {
     var rawPayments = Array.from(_rawPayments);
     //console.log('Raw Payments: %s', rawPayments);
     //console.log('Raw Payment #1: %s', rawPayments[0]);
@@ -37,9 +37,4 @@ function processPaymentData(_rawPayments) {
     });
     //console.log('Payments: %s', payments)
     return payments;
-}
-
-module.exports = {
-    payment: Payment,
-    processPaymentData: function (rawPayments) {return processPaymentData(rawPayments)},
 }
