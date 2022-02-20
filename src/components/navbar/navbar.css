@@ -61,12 +61,13 @@
 .connect-wallet button {
    padding: 0.5rem 1rem;
    color: #fff;
-   background: #FF4820;
+   /* background: #FF4820; */
+   background: none;
    font-family: var(--font-family);
    font-weight: 500;
    font-size: 18px;
    line-height: 25px;
-   border: none;
+   border: 2px solid #F49867;
    outline: none;
    cursor: pointer;
    border-radius: 5px;
@@ -79,12 +80,12 @@
 
     padding: 0.5rem 1rem;
     color: #fff;
-    background: #FF4820;
+    /* background: #FF4820; */
     font-family: var(--font-family);
     font-weight: 500;
     font-size: 18px;
     line-height: 25px;
-    border: none;
+    /* border: 1px solid #F49867; */
     outline: none;
     cursor: pointer;
     border-radius: 5px;

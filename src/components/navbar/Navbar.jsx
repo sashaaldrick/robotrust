@@ -1,5 +1,6 @@
 import{ React, useState, useEffect} from 'react'
 import './navbar.css';
+
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import logo from '../../assets/robotrust.png';
 import metamaskIcon from '../../assets/metamask.svg';
@@ -12,12 +13,9 @@ const Menu = () => {
     );
 }
 
-const Navbar = () => {
+const Navbar = props => {
   const [toggleMenu, setToggleMenu] = useState(false);
-  const [currentAccount, setCurrentAccount] = useState('');
-  const [accountFound, setAccountFound] = useState(false);
-  const [connectButtonClicked, setConnectButtonClicked] = useState(false);
-
+  
   const connectWalletHandler = async () => { 
     // if no auto-login, show a connect wallet button to allow for connection to metamask.
   
@@ -30,21 +28,21 @@ const Navbar = () => {
     try {
       const accounts = await ethereum.request({ method: 'eth_requestAccounts'});
       console.log("Found an account! Address: ", accounts[0]);
-      setCurrentAccount(accounts[0]);
-      setAccountFound(true);
-      setConnectButtonClicked(true);
+      props.setCurrentAccount(accounts[0]);
+      props.setAccountFound(true);
+      props.setConnectButtonClicked(true);
     } catch(err) {
       console.log(err);
-      setConnectButtonClicked(true);
+      props.setConnectButtonClicked(true);
     }
   }
 
   const ConnectedAccountInfo = () => {
-    const slicedAddress = currentAccount.slice(0, 5) + "..." + currentAccount.slice(-4);
+    const slicedAddress = props.currentAccount.slice(0, 5) + "..." + props.currentAccount.slice(-4);
     return(
       <div className="connected-account">
         <img src={metamaskIcon} alt="Metamask Icon" />
-        {accountFound && connectButtonClicked 
+        {props.accountFound && props.connectButtonClicked 
          ? <p> {slicedAddress} </p>
          : <p> Please install Metamask! </p>
         }
@@ -62,8 +60,8 @@ const Navbar = () => {
           <Menu />
         </div>
       </div>
-      <div className="connect-wallet">  
-        {accountFound 
+      <div className="connect-wallet"> 
+        {props.accountFound 
           ? <ConnectedAccountInfo />
           : <button type="button" onClick={connectWalletHandler}> Connect your wallet </button>
         }
