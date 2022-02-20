@@ -94,14 +94,14 @@ const deployTrust = async (values) => {
     // get individual Contract info
     const trustContract = new ethers.Contract(contractAddress, trustABI, signer);
 
-    try {
-      let trustData = await trustContract.getTrustData();
-      console.log(trustFromContractData(trustData));
+    // try {
+    //   let trustData = await trustContract.getTrustData();
+    //   console.log(trustFromContractData(trustData));
 
-    } catch(err) {
-      console.log(err);
-    }
-
+    // } catch(err) {
+    //   console.log(err);
+    // }
+    return "trustContract"
 }
 
 export default deployTrust;

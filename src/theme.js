@@ -1,5 +1,4 @@
 import { createTheme } from '@mui/material/styles';
-import Manrope from './assets/Manrope-SemiBold.ttf';
 
 export const theme = createTheme({
     palette: {

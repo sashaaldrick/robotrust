@@ -20,15 +20,6 @@ const useCalculateFirstPayment = () => {
 
         const firstPayment = getFirstPayment(+retainedInterest, +interestRate, +(graduatedPercentage/100), +termInYears)
         const paymentsArr = getPayments(+firstPayment, +termInYears, +(graduatedPercentage/100))
-        // console.log('typeof retainedInterest', typeof retainedInterest)
-        // console.log('typeof gradingPercent', typeof gradingPercent)
-        // console.log('typeof termInYears', typeof termInYears)
-        // console.log('firstPayment', firstPayment)
-        // console.log('gradingPercent', graduatedPercentage)
-        // console.log("interestRate: " + interestRate)
-        // console.log("retainedInterest: " + retainedInterest)
-        // console.log("termInYears: " + termInYears)
-        // console.log('paymentsArr', paymentsArr)
 
     return [paymentsArr]
 }

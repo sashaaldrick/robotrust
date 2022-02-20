@@ -13,15 +13,17 @@ import GRATFormModel from "./helpers/GRATFormModel";
 
 export const FormContext = createContext("");
 
-const steps = ["amount form", "signing form"];
+const steps = ["amount form", "signing form", "data display"];
 const { formId, formField } = GRATFormModel;
 
-function _renderStepContent(step, formProps, values) {
+function _renderStepContent(step, formProps, values, trustData) {
   switch (step) {
     case 0:
       return <AmountForm formField={formField} formProps={formProps} />;
     case 1:
       return <SigningForm />;
+    case 2: 
+      return <DataDisplay data={trustData}/>
     default:
       return <AmountForm formField={formField} formProps={formProps} />;
   }
@@ -30,19 +32,23 @@ function _renderStepContent(step, formProps, values) {
 const GRATPage = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [GRAT, setGRAT] = useSetGRAT();
+  var trustData;
 //   const currentValidationSchema = validationSchema[activeStep];
   const isLastStep = activeStep === steps.length - 1;
-  function _handleSubmit(values, actions) {
-    if (!isLastStep) {
+  async function _handleSubmit(values, actions) {
+    if (activeStep[0]) {
       setGRAT(values);
       setActiveStep(activeStep + 1);
       actions.setTouched({});
       actions.setSubmitting(false);
-    } else {
-      deployTrust(values);
+    } else if (activeStep[1]) {
+      actions.setTouched({});
+      trustData = await deployTrust(values);
+      setActiveStep(activeStep + 1);
       actions.setSubmitting(true);
+    } else if (activeStep[2]) {
+
     }
-    
   }
   return (
       <Box sx={{ p: 1, mx: 3, my: 1 }} className="client">
@@ -63,7 +69,7 @@ const GRATPage = () => {
                 <Box className="" sx={{
                     margin: '4rem',
                 }}>
-                  {_renderStepContent(activeStep, FormProps, GRAT)}
+                  {_renderStepContent(activeStep, FormProps, GRAT, trustData)}
                 </Box>
                 <Box sx={{
                   marginY: '4rem',
@@ -72,6 +78,7 @@ const GRATPage = () => {
                 }}>
                   {isLastStep ? (
                       <Button
+                      type="submit"
                       variant="contained"
                       color="inherit"
                       sx={{
