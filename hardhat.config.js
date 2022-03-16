@@ -26,6 +26,10 @@ module.exports = {
       url: RINKEBY_URL,
       chainId: 4, //rinkeby chain ID.
     },
+    mumbai: {
+      url: "https://rpc-mumbai.maticvigil.com",
+      accounts: [process.env.DEVNET_PRIVKEY] //
+    },
   },
   etherscan: {
     apiKey: {

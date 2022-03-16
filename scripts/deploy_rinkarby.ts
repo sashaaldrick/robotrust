@@ -1,15 +1,15 @@
 require('dotenv').config();
 const { ethers } = require("ethers");
 const hre = require("hardhat");
-const args = require("../arguments.js");
+const args = require("./arguments.js");
 const { run_keeper } = require('../scripts/keepers.js');
 
 async function main() {
   
     // set up keys and provider.
     const apiKey = process.env.INFURA_API_KEY;
-    const privKey = process.env.DEVNET_PRIVKEY;
-    provider = new ethers.providers.InfuraProvider("arbitrum-rinkeby", apiKey);
+    const privKey = process.env.DEVNET_PRIVKEY as string;
+    const provider = new ethers.providers.InfuraProvider("arbitrum-rinkeby", apiKey);
   
     // create wallet.
     let wallet = new ethers.Wallet(privKey, provider);

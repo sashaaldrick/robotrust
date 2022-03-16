@@ -1,9 +1,23 @@
-import { Payment, processPaymentData } from './payment.js';
+import { Payment, processPaymentData } from './payment';
 import { ethers } from 'ethers';
 
 export class Trust {
-    constructor(owner, trustee, beneficiary, lastTimestamp, numberOfYears, terminated, showBeneficiaryAccounting, gift, annuityPV, 
-       initialGrant, paymentAmounts, payments) {
+    owner: string;
+    trustee: string;
+    beneficiary: string;
+    lastTimestamp: Date;
+    numberOfYears: number;
+    terminated: boolean;
+    showBeneficiaryAccounting: boolean;
+    gift: number;
+    annuityPV: number;
+    initialGrant: Payment;
+    paymentAmounts: number[];
+    payments: Payment[];
+    trustAddress?: string;
+
+    constructor(owner: string, trustee: string, beneficiary: string, lastTimestamp: number, numberOfYears: number, terminated: boolean, 
+        showBeneficiaryAccounting: boolean, gift: number, annuityPV: number, initialGrant: any, paymentAmounts: number[], payments: Payment[]) {
             this.owner = owner;
             this.trustee = trustee;
             this.beneficiary = beneficiary;
@@ -13,7 +27,7 @@ export class Trust {
             this.showBeneficiaryAccounting = showBeneficiaryAccounting;
             this.gift = gift;
             this.annuityPV = annuityPV;
-            this.initialGrant = processPaymentData([initialGrant]);
+            this.initialGrant = processPaymentData([initialGrant])[0];
             this.paymentAmounts = paymentAmounts;
             this.payments = processPaymentData(payments);
         }
@@ -35,7 +49,7 @@ export class Trust {
         }
 }
 
-export function trustFromContractData(data) {
+export function trustFromContractData(data: any[]) {
     return new Trust(
         data[0],
         data[1],
@@ -49,12 +63,19 @@ export function trustFromContractData(data) {
         data[9],
         data[10],
         data[11],
-        data[12]
     );
 }
 
 export class BeneficiaryTrust {
-    constructor(owner, trustee, contractAddress, amountRemaining, payments, startedTimestamp, numberOfYears) {
+    owner: string;
+    trustee: string;
+    contractAddress: string;
+    amountRemaining: number;
+    payments: Payment[];
+    startedTimestamp: Date;
+    numberOfYears: number;
+
+    constructor(owner: string, trustee: string, contractAddress: string, amountRemaining: number, payments: any[], startedTimestamp: number, numberOfYears: number) {
         this.owner = owner;
         this.trustee = trustee;
         this.contractAddress = contractAddress;
@@ -76,7 +97,7 @@ export class BeneficiaryTrust {
     }
 }
 
-export function trustFromContractBeneficiary(data) {
+export function trustFromContractBeneficiary(data: any[]) {
     return new BeneficiaryTrust(
         data[0],
         data[1],

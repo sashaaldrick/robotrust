@@ -1,9 +1,12 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import './header.css';
 import people from '../../assets/people.png';
 import robot from '../../assets/nevertrustarobot.png';
 
-const Header = props => {
+const Header = () => {
+  const navigator = useNavigate();
+
   return (
     <div className="header section-padding" id="home">
         <div className="header-content"> 
@@ -16,7 +19,9 @@ const Header = props => {
           <div className="header-content-input">
             {/* <input type="email" placeholder="Your Email Address" /> */}
             {/* <button type="button"> Get Started </button> */}
-            <a href="#client"><button type="button" onClick={() => props.setClientRequested(true)}>Get Started</button></a>
+            <a onClick={(() => {
+              navigator('/create');
+            })}><button type="button">Get Started</button></a>
           </div>
 
           <div className="header-content-people">
