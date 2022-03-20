@@ -1,6 +1,7 @@
 import React from 'react';
-import { Box, Text, Heading, Image } from '@chakra-ui/react';
+import { Box, Text, Heading, Image, Stack, Link } from '@chakra-ui/react';
 import logo from '../../assets/robotrust.png';
+import twitterIcon from '../../assets/twitter.svg'
 import './footer.css';
 
 const Footer = () => (
@@ -30,8 +31,16 @@ const Footer = () => (
       </Box>
       <Box className="footer-links-Box">
         <Heading fontSize={['md', 'lg']}>Get in touch</Heading>
-        <Text><a href="https://twitter.com/RobotrustXYZ"> Follow us on Twitter! </a></Text>
-
+        <Box> 
+          <Stack direction='row'>
+            <Text ml={'-2rem'}> 
+              <Link color='teal.500' href='https://twitter.com/RobotrustXYZ'> Follow us on Twitter! </Link>
+            </Text>
+            <Link href='https://twitter.com/RobotrustXYZ'>
+               <Image boxSize='24px' src={twitterIcon} alt="twitter icon" /> 
+            </Link>
+          </Stack> 
+        </Box>
       </Box>
     </Box>
 
