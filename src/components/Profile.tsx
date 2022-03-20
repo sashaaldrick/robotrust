@@ -59,9 +59,9 @@ export function Profile() {
     return (
         <Box paddingLeft={['15px', '25px', '100px']} paddingTop={'20px'} paddingRight={['15px', '25px', '100px']} paddingBottom={'20px'}>
             <Box display={'flex'}>
-                <Button margin={'10px'} bgColor={tab == 0 ? '#FF8A71' : 'white'} textColor={tab == 0 ? 'white' : 'black'} onClick={(() => _changeTab(0))}>My Trusts</Button>
-                <Button margin={'10px'} bgColor={tab == 1 ? '#FF8A71' : 'white'} textColor={tab == 1 ? 'white' : 'black'} onClick={(() => _changeTab(1))}>Trustee On</Button>
-                <Button margin={'10px'} bgColor={tab == 2 ? '#FF8A71' : 'white'} textColor={tab == 2 ? 'white' : 'black'} onClick={(() => _changeTab(2))}>Beneficiary On</Button>    
+                <Button margin={'10px'} bgColor={tab === 0 ? '#FF8A71' : 'white'} textColor={tab === 0 ? 'white' : 'black'} onClick={(() => _changeTab(0))}>My Trusts</Button>
+                <Button margin={'10px'} bgColor={tab === 1 ? '#FF8A71' : 'white'} textColor={tab === 1 ? 'white' : 'black'} onClick={(() => _changeTab(1))}>Trustee On</Button>
+                <Button margin={'10px'} bgColor={tab === 2 ? '#FF8A71' : 'white'} textColor={tab === 2 ? 'white' : 'black'} onClick={(() => _changeTab(2))}>Beneficiary On</Button>    
             </Box>
             {
                 trustList.length > 0 ? 
