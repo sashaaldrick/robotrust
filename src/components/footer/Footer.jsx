@@ -18,11 +18,11 @@ const Footer = () => (
         <Image src={logo} alt="robotrust_logo" />
         <Text> In the metaverse 😎 <br /> </Text>
       </Box>
-      <Box className="footer-links-Box">
+      {/* <Box className="footer-links-Box">
         <Heading fontSize={['md', 'lg']}>Links</Heading>
         <Text>Social Media</Text>
         <Text>Contact</Text>
-      </Box>
+      </Box> */}
       <Box className="footer-links-Box">
         <Heading fontSize={['md', 'lg']}>Company</Heading>
         <Text>Terms & Conditions </Text>
