@@ -16,26 +16,22 @@ const Footer = () => (
     <Box className="footer-links" textColor={'white'}>
       <Box className="footer-links-logo">
         <Image src={logo} alt="robotrust_logo" />
-        <Text> 1650 Champa St., Denver, CO 80202 <br /> All Rights Reserved</Text>
+        <Text> In the metaverse 😎 <br /> </Text>
       </Box>
       <Box className="footer-links-Box">
         <Heading fontSize={['md', 'lg']}>Links</Heading>
-        <Text>Overons</Text>
         <Text>Social Media</Text>
-        <Text>Counters</Text>
         <Text>Contact</Text>
       </Box>
       <Box className="footer-links-Box">
         <Heading fontSize={['md', 'lg']}>Company</Heading>
         <Text>Terms & Conditions </Text>
         <Text>Privacy Policy</Text>
-        <Text>Contact</Text>
       </Box>
       <Box className="footer-links-Box">
         <Heading fontSize={['md', 'lg']}>Get in touch</Heading>
-        <Text>1650 Champa St., Denver, CO 80202</Text>
-        <Text>085-132567</Text>
-        <Text>robot@robotrust.xyz</Text>
+        <Text><a href="https://twitter.com/RobotrustXYZ"> Follow us on Twitter! </a></Text>
+
       </Box>
     </Box>
 
