@@ -3,10 +3,9 @@ require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-etherscan");
 require("dotenv").config();
 
-const ETHERSCAN_API_KEY_RINKEBY = process.env.ETHERSCAN_API_KEY_RINKEBY;
-const ETHERSCAN_API_KEY_RINKARBY = process.env.ETHERSCAN_API_KEY_RINKARBY;
+const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY_RINKEBY;
 
-const INFURA_API_KEY = process.env.INFURA_API_KEY;
+// const INFURA_API_KEY = process.env.INFURA_API_KEY;
 const RINKEBY_URL = process.env.RINKEBY_URL;
 
 module.exports = {
@@ -33,8 +32,8 @@ module.exports = {
   },
   etherscan: {
     apiKey: {
-      rinkeby: ETHERSCAN_API_KEY_RINKEBY,
-      arbitrumTestnet: ETHERSCAN_API_KEY_RINKARBY,
+      rinkeby: ETHERSCAN_API_KEY,
+      arbitrumTestnet: ETHERSCAN_API_KEY,
     }, 
   },
 };
