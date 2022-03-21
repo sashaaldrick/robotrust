@@ -11,10 +11,10 @@ const Header = () => {
       <div className="header section-padding" id="home">
         <div className="header-content"> 
           <h1 className="gradient__text"> 
-          Pass more ETH to your heirs...
+          Maximize your charitable giving...
           </h1>
-          <h2 className="gradient__text"> using a crypto grantor retained annuity trust (GRAT).  </h2>
-          <p> Connect your wallet, set trust parameters, and deposit ETH. Robotrust’s smart contract on Ethereum automatically pays your annuities in kind, then sends the balance to the specified beneficiary at termination. </p>
+          <h2 className="gradient__text"> using a crypto charitable remainder unitrust (GRAT).  </h2>
+          <p> Connect your wallet, set trust parameters, and deposit ETH. Robotrust’s smart contract on Ethereum automatically pays your annuities in kind, then sends the balance to the specified charity at termination. </p>
 
           <div className="header-content-input">
             {/* <input type="email" placeholder="Your Email Address" /> */}
