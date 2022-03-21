@@ -42,8 +42,8 @@
 .header-content p {
     font-family: var(--font-family);
     font-weight: normal;
-    font-size: 20px;
-    line-height: 27px;
+    font-size: 18px;
+    line-height: 24px;
     color: var(--color-text);
 
 }
