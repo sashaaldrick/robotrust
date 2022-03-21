@@ -188,7 +188,7 @@ export function CreateCRUT() {
                             <Text>${formatDollarValues(createCRUTData.usdValue)}</Text>
                           </Box>
                           <Box margin={'10px'}>
-                            <Text fontWeight={'bold'}>Annuant Address:</Text>
+                            <Text fontWeight={'bold'}> Annuitant Address:</Text>
                             <Text>{createCRUTData.annuant}</Text>
                           </Box>
                           <Box margin={'10px'}>
