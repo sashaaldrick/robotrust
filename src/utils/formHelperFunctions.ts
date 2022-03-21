@@ -4,17 +4,17 @@ import { ethers } from 'ethers';
 export const getETHtoUSD = async (amount: number) => {
     // a function to call chainlink price feed and set 'usdAmount' variable to value of eth typed in the input box in USD.
         // check for metamask injected objected.
-        const { ethereum } = window;
+        // const { ethereum } = window;
 
         let provider;
-        if (ethereum) {
-          // if metamask is available, use metamask
-          provider = new ethers.providers.Web3Provider(ethereum);
-        } else {
+        // if (ethereum) {
+        //   // if metamask is available, use metamask
+        //   provider = new ethers.providers.Web3Provider(ethereum);
+        // } else {
           // otherwise use the public RPC provided by Offchain labs.
-          const RPC_URL="https://rinkeby.arbitrum.io/rpc"
-          provider = new ethers.providers.JsonRpcProvider(RPC_URL);
-        }
+        const RPC_URL="https://rinkeby.arbitrum.io/rpc"
+        provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+        // }
         console.log("We be connected!");
     
         const addr = "0x5f0423B1a6935dc5596e7A24d98532b67A0AeFd8"; //Arbitrum Rinkeby ETH/USD price feed
