@@ -13,8 +13,8 @@ const Header = () => {
           <h1 className="gradient__text"> 
           Maximize your charitable giving...
           </h1>
-          <h2 className="gradient__text"> using a crypto charitable remainder unitrust (GRAT).  </h2>
-          <p> Connect your wallet, set trust parameters, and deposit ETH. Robotrust’s smart contract on Ethereum automatically pays your annuities in kind, then sends the balance to the specified charity at termination. </p>
+          <h2 className="gradient__text"> using a crypto charitable remainder unitrust (CRUT).  </h2>
+          <p> Give ETH to charity and save on taxes using a tool normally reserved for the very wealthy. Connect your wallet, set trust parameters, and deposit ETH. Robotrust’s smart contract on Ethereum automatically pays you back a percentage of ETH, then sends the balance to a charity of your choosing at termination. You participate in ETH's upside and can immediately deduct a large portion of the gift from your taxes. For the first time, you don't need an expensive attorney and a massive fortune to maximize your giving power. </p>
 
           <div className="header-content-input">
             {/* <input type="email" placeholder="Your Email Address" /> */}
