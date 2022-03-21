@@ -68,4 +68,64 @@ export class CreateFormData {
             Graduated Percentage: ${this.graduatedPercentage}
         `
     }
-} 
+}
+
+export interface ICreateCRUTData {
+    ethAmount?: number,
+    usdValue?: number,
+    annuant?: string,
+    trusteeAddress?: string,
+    charityAddress?: string,
+    termInYears?: number,
+    percent?: number
+}
+
+export class CreateCRUTData {
+    ethAmount: number = 0;
+    usdValue: number = 0;
+    annuant: string = '';
+    trusteeAddress: string = '';
+    charityAddress: string = '';
+    termInYears: number = 1;
+    percent: number = 5;
+    
+    constructor(params: ICreateCRUTData) {
+        this.ethAmount = params.ethAmount ?? this.ethAmount;
+        this.usdValue = params.usdValue ?? this.usdValue;
+        this.annuant = params.annuant ?? this.annuant;
+        this.trusteeAddress = params.trusteeAddress ?? this.trusteeAddress;
+        this.charityAddress = params.charityAddress ?? this.charityAddress;
+        this.termInYears = params.termInYears ?? this.termInYears;
+        this.percent = params.percent ?? this.percent;
+    }
+
+    copyWith(
+        _params: ICreateCRUTData
+    ) {
+        let _newFullParams: ICreateCRUTData = {
+            ethAmount: _params.ethAmount ?? this.ethAmount,
+            usdValue: _params.usdValue ?? this.usdValue,
+            annuant: _params.annuant ?? this.annuant,
+            trusteeAddress: _params.trusteeAddress ?? this.trusteeAddress,
+            charityAddress: _params.charityAddress ?? this.charityAddress,
+            termInYears: _params.termInYears ?? this.termInYears,
+            percent: _params.percent ?? this.percent
+        };
+        console.log(`New Params: ${_newFullParams}`);
+        return new CreateCRUTData(
+            _newFullParams
+        );
+    }
+    
+    toString() {
+        return `
+            Eth Amount: ${this.ethAmount}
+            USD Value: ${this.usdValue}
+            Annuant: ${this.annuant}
+            Trustee: ${this.trusteeAddress}
+            Beneficiary: ${this.charityAddress}
+            Term In Years: ${this.termInYears}
+            Percent: ${this.percent}
+        `
+    }
+}

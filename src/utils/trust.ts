@@ -109,3 +109,66 @@ export function trustFromContractBeneficiary(data: any[]) {
     );
 }
 
+export class CRUT {
+    /*
+address, //0: owner
+        address, //1: annuant
+        address, //2: trustee
+        address, //3: charity
+        uint, //4: last payment timestamp
+        uint, //5: number of years
+        bool, //6: terminated
+        Payment memory, //7: initial grant
+        uint, //8: payment percent
+        Payment[] memory //9: payments made;
+    */
+    owner: string;
+    annuant: string;
+    trustee: string;
+    charity: string;
+    lastPaymentTimestamp: Date;
+    numberOfYears: number;
+    terminated: boolean;
+    initialGrant: Payment;
+    percent: number
+    payments: Payment[];
+    contractAddress?: string;
+
+    constructor(_owner: string, _annuant: string, _trustee: string, _charity: string, _lastPaymentTimestamp: number, _numberOfYears: number, _terminated: boolean, _initialGrant: any, _percent: number, payments: any[], ) {
+        this.owner = _owner;
+        this.trustee = _trustee;
+        this.annuant = _annuant;
+        this.charity = _charity;
+        this.payments = payments;
+        this.lastPaymentTimestamp = new Date(_lastPaymentTimestamp * 1000);
+        this.numberOfYears = _numberOfYears;
+        this.terminated = _terminated;
+        this.initialGrant = processPaymentData([_initialGrant])[0];
+        this.percent = _percent;
+
+    }
+
+    toString() {
+        return `Owner: ${this.owner}
+            Trustee: ${this.trustee}
+            Payments: ${processPaymentData(this.payments)}
+            Started Timestamp: ${this.lastPaymentTimestamp}
+            Number of Years: ${this.numberOfYears}
+            `;
+    }
+}
+
+export function crutFromContract(data: any[]) {
+    return new CRUT(
+        data[0],
+        data[1],
+        data[2],
+        data[3],
+        data[4],
+        data[5],
+        data[6],
+        data[7],
+        data[8],
+        data[9]
+    );
+}

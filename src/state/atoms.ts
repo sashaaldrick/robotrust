@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import { ethers } from 'ethers';
-import { CreateFormData } from '../utils/createFormData';
+import { CreateFormData, CreateCRUTData } from '../utils/createFormData';
 
 export const accountState = atom({
     key: 'accountState',
@@ -20,4 +20,9 @@ export const providerState = atom({
 export const createTrustFormState = atom({
   key: 'createTrustFormState',
   default: new CreateFormData({})
+});
+
+export const createCRUTFormState = atom({
+  key: 'createCRUTFormState',
+  default: new CreateCRUTData({})
 });

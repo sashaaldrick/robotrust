@@ -6,11 +6,12 @@ import RoboTrust from '../artifacts/contracts/RoboTrust.sol/RoboTrust.json';
 
 import { getFirstPayment, getPayments } from './formHelperFunctions';
 import { trustFromContractData } from './trust';
-import { CreateFormData } from './createFormData';
+import { CreateFormData, CreateCRUTData } from './createFormData';
 import { RiContactsBookLine } from 'react-icons/ri';
 
 
 const deployerABI = RoboTrustDeployer.abi;
+const deployerAddress = "0xdA261Fd451DD8917DB193c990681e8A93ee0732e";
 const trustABI = RoboTrust.abi;
 
 const disclaimer = "By signing the smart contract, you acknowledge that use of a digital mechanism for forming a trust may not be permissible under your state's jurisdiction, has not been approved by the Internal Revenue Service, and has not been recognized in any court of law. You represent that you have sought appropriate financial and legal advice, and that you are not reliant on any representations or suggestions of Robotrust.xyz. You hereby waive any right for yourself, your heirs, and assigns to hold Robotrust.xyz liable for (i) any indirect, incidental, special, consequential or punitive damages, or financial loss, whether incurred directly or indirectly or resulting from your access to or use or inability to access or use Robotrust.xyz; or (ii) any conduct of a third party, including any unauthorized access, use, or alteration of your transmissions. You agree that any dispute arising out of or relating to the use of Robotrust.xyz, including the termination of the scope or applicability of this agreement to arbitrate, will be determined by arbitration in the state of Texas or another mutually agreed upon location, before one neutral arbitrator.";
@@ -63,7 +64,7 @@ export const deployTrust = async (createTrustData: CreateFormData) => {
     let signerAddress = await signer.getAddress()
 
     // address of test deployer contract on Rinkarby.
-    const contractAddress = "0xb716885030FfD2157475457480f9638909FefF92";
+    const contractAddress = deployerAddress;
     const deployerContract = new ethers.Contract(contractAddress, deployerABI, signer);
 
     let firstPayment = getFirstPayment(+createTrustData.retainedInterest, createTrustData.interestRate, +createTrustData.graduatedPercentage/100, +createTrustData.termInYears);
@@ -102,16 +103,30 @@ export const deployTrust = async (createTrustData: CreateFormData) => {
     let mostRecentIndex = indices[indices.length - 1].toNumber();
     let trustAddress = await deployerContract.trustList(mostRecentIndex);
     console.log("Trust Address: " + trustAddress);
+}
 
-    // get individual Contract info
-    const trustContract = new ethers.Contract(trustAddress, trustABI, signer);
+export const deployCRUT = async (data: CreateCRUTData) => {
+  let provider: ethers.providers.Web3Provider = new ethers.providers.Web3Provider(window.ethereum);
 
-    try {
-      let trustDataTx = await trustContract.getTrustData();
-      let trustData = trustFromContractData(trustDataTx);
-      Object.assign(trustData, {trustAddress: trustAddress});
-      return trustData;
-    } catch(err) {
-      console.log(err);
-    }
+  if (!provider) {
+    alert("Please install Metamask and set up an account to continue!");
+  }
+
+  await provider.send("eth_requestAccounts", []);
+  let signer = await provider.getSigner();
+  let signerAddress = await signer.getAddress()
+
+  // address of test deployer contract on Rinkarby.
+  const contractAddress = deployerAddress;
+  const deployerContract = new ethers.Contract(contractAddress, deployerABI, signer);
+  console.log(data.toString());
+
+  try {
+    //createCRUT(address _annuant, address _trustee, address _beneficiary, uint16 _numberOfYears, uint16 _paymentPercent, string memory _disclaimer)
+    let createTrustTx = await deployerContract.createCRUT(data.annuant, data.trusteeAddress, data.charityAddress, data.termInYears, data.percent * 10, disclaimer, { value: ethers.utils.parseEther(data.ethAmount.toString())});
+    await createTrustTx.wait();
+    console.log("Deployed Trust Contract!");
+  } catch(err) {
+    console.log(err);
+  }
 }

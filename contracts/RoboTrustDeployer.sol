@@ -3,16 +3,19 @@ pragma solidity >=0.8.11;
 
 import "hardhat/console.sol";
 import "./RoboTrust.sol";
+import "./RoboTrustCRUT.sol";
 
 //Needs to allow a user to call a function to deploy a RoboTrust contract (passing in arguments)
 //Needs to keep track of all deployed trusts
 contract RoboTrustDeployer {
     address internal priceFeedAddress;
     RoboTrust[] public trustList;
+    RoboTrustCRUT[] public crutList;
     string internal disclaimer;
     mapping(address => uint[]) internal ownerToTrusts;
     mapping(address => uint[]) internal trusteeToTrusts;
     mapping(address => uint[]) internal beneficiaryToTrusts;
+    mapping(address => uint[]) internal addressToCRUT;
 
     constructor(address _priceFeedAddress) {
         priceFeedAddress = _priceFeedAddress;
@@ -32,6 +35,21 @@ contract RoboTrustDeployer {
         return newTrust;
     }
 
+    function createCRUT(address _annuant, address _trustee, address _beneficiary, uint16 _numberOfYears, uint16 _paymentPercent, string memory _disclaimer) public payable {
+        require(keccak256(abi.encodePacked(disclaimer)) == keccak256(abi.encodePacked(_disclaimer)), "You must sign our disclaimer");
+        RoboTrustCRUT newCRUT = (new RoboTrustCRUT){value: msg.value}(msg.sender, _annuant, _trustee, _beneficiary, 60, _numberOfYears, _paymentPercent, priceFeedAddress);
+        uint index = crutList.length;
+        crutList.push(newCRUT);
+        addressToCRUT[msg.sender].push(index);
+        if(msg.sender != _trustee) {
+            addressToCRUT[_trustee].push(index);
+        }
+        if(msg.sender != _annuant && _trustee != _annuant) {
+            addressToCRUT[_annuant].push(index);
+        }
+        addressToCRUT[_beneficiary].push(index);
+    }
+
     function getOwnerTrusts(address _owner) public view returns(uint[] memory) {
         return ownerToTrusts[_owner];
     }
@@ -42,5 +60,9 @@ contract RoboTrustDeployer {
 
     function getBeneficiaryTrusts(address _beneficiary) public view returns(uint[] memory) {
         return beneficiaryToTrusts[_beneficiary];
+    }
+
+    function getAddressCRUT(address _address) public view returns(uint[] memory) {
+        return addressToCRUT[_address];
     }
 }

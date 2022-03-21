@@ -4,6 +4,7 @@ require("@nomiclabs/hardhat-etherscan");
 require("dotenv").config();
 
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY_RINKEBY;
+const ETHERSCAN_API_KEY_RINKARBY = process.env.ETHERSCAN_API_KEY_RINKARBY;
 
 // const INFURA_API_KEY = process.env.INFURA_API_KEY;
 const RINKEBY_URL = process.env.RINKEBY_URL;
@@ -33,7 +34,7 @@ module.exports = {
   etherscan: {
     apiKey: {
       rinkeby: ETHERSCAN_API_KEY,
-      arbitrumTestnet: ETHERSCAN_API_KEY,
+      arbitrumTestnet: ETHERSCAN_API_KEY_RINKARBY,
     }, 
   },
 };

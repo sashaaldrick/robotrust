@@ -13,7 +13,7 @@ function App() {
   return (
     <Router>
         <Box className="gradient__bg">
-            <Box position={'static'}>
+            <Box position={'static'} minHeight={'80vh'}>
                 <Navbar />
                   <Routes>
                     <Route path='/' element={<Header />} />
