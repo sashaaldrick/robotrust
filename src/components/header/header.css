@@ -24,7 +24,7 @@
 .header-content h1 {
     font-family: var(--font-family);
     font-weight: 800;
-    font-size: 62px;
+    font-size: 48px;
     line-height: 85 px;
     letter-spacing: -0.04em;
 }
@@ -32,7 +32,7 @@
 .header-content h2 {
     font-family: var(--font-family);
     font-weight: 800;
-    font-size: 36px;
+    font-size: 24px;
     line-height: 75px;
     letter-spacing: -0.04em;
     text-align: center;

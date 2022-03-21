@@ -5,10 +5,6 @@
     scroll-behavior: smooth;
 } /* * means all elements */
 
-li {
-    color: white;
-}
-
 body {
     background: var(--color-bg);
 }

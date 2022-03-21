@@ -3,10 +3,10 @@ require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-etherscan");
 require("dotenv").config();
 
-const ETHERSCAN_API_KEY_RINKEBY = process.env.ETHERSCAN_API_KEY_RINKEBY;
+const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY_RINKEBY;
 const ETHERSCAN_API_KEY_RINKARBY = process.env.ETHERSCAN_API_KEY_RINKARBY;
 
-const INFURA_API_KEY = process.env.INFURA_API_KEY;
+// const INFURA_API_KEY = process.env.INFURA_API_KEY;
 const RINKEBY_URL = process.env.RINKEBY_URL;
 
 module.exports = {
@@ -26,10 +26,14 @@ module.exports = {
       url: RINKEBY_URL,
       chainId: 4, //rinkeby chain ID.
     },
+    mumbai: {
+      url: "https://rpc-mumbai.maticvigil.com",
+      accounts: [process.env.DEVNET_PRIVKEY] //
+    },
   },
   etherscan: {
     apiKey: {
-      rinkeby: ETHERSCAN_API_KEY_RINKEBY,
+      rinkeby: ETHERSCAN_API_KEY,
       arbitrumTestnet: ETHERSCAN_API_KEY_RINKARBY,
     }, 
   },

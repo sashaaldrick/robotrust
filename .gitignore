@@ -32,7 +32,6 @@ typechain
 
 #Hardhat files
 cache
-artifacts
 
 .vscode/*
 .mocharc.json
