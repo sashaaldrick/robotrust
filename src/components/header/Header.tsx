@@ -16,8 +16,8 @@ const Header = () => {
           <h2 className="gradient__text"> using a crypto charitable remainder unitrust (CRUT).  </h2>
           <p> Give ETH to charity and save on taxes using a tool normally reserved for the very wealthy. Connect your wallet, set trust parameters, and deposit ETH. Robotrust’s smart contract on Ethereum automatically pays you back a percentage of ETH, then sends the balance to a charity of your choosing at termination. <br></br> <br></br> You participate in ETH's upside and can immediately deduct a large portion of the gift from your taxes. For the first time, you don't need an expensive attorney and a massive fortune to maximize your giving power. </p>
 
-          <br></br>
-          <p> <b> Currently for demonstration purposes, our trusts work only on Arbitrum Rinkeby. </b> </p>
+          
+          <p> <br></br> <b> Currently for demonstration purposes, our trusts work only on Arbitrum Rinkeby. </b> </p>
 
           <div className="header-content-input">
             {/* <input type="email" placeholder="Your Email Address" /> */}
