@@ -11,7 +11,7 @@ import { Grid, GridItem, Divider, Text, Heading, Switch, Button, Box, Center, Un
 import { deployTrust } from '../utils/deployTrust'; 
 
 export function CreateGRAT() {
-    const _interestRate = 0.02;
+    const _interestRate = 0.022;
     const navigator = useNavigate();
     const today = new Date().toLocaleDateString('en-us', { month:"numeric", day:"numeric"})
     const oneYearFromNow = new Date();

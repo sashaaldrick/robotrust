@@ -12,6 +12,7 @@ import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import { accountState, connectButtonClickedState } from '../../state/atoms';
 import logo from '../../assets/robotrust.png';
 import metamaskIcon from '../../assets/metamask.svg';
+import { HashLink } from 'react-router-hash-link';
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -66,7 +67,9 @@ const Navbar = () => {
         </Link>
       </Box>
       <Box justifyContent={'flex-end'} flex={1} display={['none', 'none', 'flex']} paddingRight={'15'}>
-        <Link href="#robotrust" display={['none', 'none', 'flex']} color={['green', 'white']} paddingRight={'15'}>About</Link>
+        <Box display={['none', 'none', 'flex']} color={['green', 'white']} paddingRight={'15'}>
+          <HashLink smooth to='/#about'>About</HashLink>
+        </Box>
         {account != null ? <Link onClick={(() => {navigator('/profile')})} display={['none', 'none', 'flex']} color={['green', 'white']}>Profile</Link> : ''}
       </Box> 
       <Box display={['none', 'none', 'flex']}> 
