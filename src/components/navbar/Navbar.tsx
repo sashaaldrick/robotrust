@@ -9,8 +9,9 @@ import {
   Button
 } from '@chakra-ui/react';
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
+import { FaTwitter, FaDiscord } from 'react-icons/fa'
 import { accountState, connectButtonClickedState } from '../../state/atoms';
-import logo from '../../assets/robotrust.png';
+import logo from '../../assets/Robotrust_Logos-08.png';
 import metamaskIcon from '../../assets/metamask.svg';
 import { HashLink } from 'react-router-hash-link';
 
@@ -67,7 +68,17 @@ const Navbar = () => {
         </Link>
       </Box>
       <Box justifyContent={'flex-end'} flex={1} display={['none', 'none', 'flex']} paddingRight={'15'}>
-        <Box display={['none', 'none', 'flex']} color={['green', 'white']} paddingRight={'15'}>
+        <Box display={['none', 'none', 'flex']} color={['green', 'white']} paddingRight={'15'} verticalAlign={'center'}>
+          <Box paddingRight={'10px'}>
+            <Link href='https://twitter.com/RobotrustXYZ'>
+              <FaTwitter size={'1.5em'} />
+            </Link>
+          </Box>
+          <Box paddingRight={'10px'}>
+            <Link href='https://discord.gg/FKCGjY5acX'>
+              <FaDiscord size={'1.5em'} />
+            </Link>
+          </Box>
           <HashLink smooth to='/#about'>About</HashLink>
         </Box>
         {account != null ? <Link onClick={(() => {navigator('/profile')})} display={['none', 'none', 'flex']} color={['green', 'white']}>Profile</Link> : ''}
@@ -96,8 +107,8 @@ const Navbar = () => {
                     border={'2px solid #F49867'} borderRadius={'5px'}> Connect your wallet </Button>
               }
             </Box>
-            <Box justifyContent={'flex-end'} flex={1} display={'flex'} marginTop={'10px'}>
-              <Link href="#robotrust" color={'white'}>About</Link>
+            <Box justifyContent={'flex-end'} flex={1} display={'flex'} marginTop={'10px'} textColor={'white'}>
+              <HashLink smooth to='/#about' color='white'>About</HashLink>
             </Box>
           </Box>
         </Box>

@@ -39,7 +39,7 @@ const Header = () => {
         <Heading>What types of trusts are supported?</Heading>
         <Text marginBottom={'16px'}>We currently support two common tax-planning structures. We are currently working on building trust structures with more customizability. If you have an idea for a trust structure, please reach out on discord.</Text>
         <Heading fontSize={'1.25rem'}>Grantor Retained Annuity Trust (GRAT)</Heading>
-        <Text marginBottom={'16px'}>Pays an amount of the assets in trust back to you (the “grantor”) annually for the term of the trust. At the end of the term, the remaining assets are paid to the specified beneficiary. If assets appreciate at a rate higher than the current Section 7520 rate, the value of that appreciation is not included in your estate.</Text>
+        <Text marginBottom={'16px'}>Pays an amount of the assets in trust back to you (the “grantor”) annually for the term of the trust. At the end of the term, the remaining assets are paid to the specified beneficiary and not includable in your gross estate.</Text>
         <Heading fontSize={'1.25rem'}>Charitable Remainder Unitrust (CRUT)</Heading>
         <Text marginBottom={'16px'}>Pays a percentage of the assets in trust to a specified party annually for the term of the trust. At the end of the term, the remaining assets are paid to a specified charity. The charity and you can both participate in the assets’ appreciation and you can immediately deduct a large portion of the gift from your taxes. </Text>
       </Box>

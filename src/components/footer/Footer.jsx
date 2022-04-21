@@ -1,8 +1,9 @@
 import React from 'react';
 import { Box, Text, Heading, Image, Stack, Link } from '@chakra-ui/react';
-import logo from '../../assets/robotrust.png';
+import logo from '../../assets/Robotrust_Logos-08.png';
 import twitterIcon from '../../assets/twitter.svg'
 import './footer.css';
+import { FaDiscord, FaTwitter } from 'react-icons/fa';
 
 const Footer = () => (
   <Box className="footer section-padding">
@@ -29,17 +30,15 @@ const Footer = () => (
         <Text>Terms & Conditions </Text>
         <Text>Privacy Policy</Text>
       </Box>
-      <Box className="footer-links-Box">
+      <Box textAlign={'start'}>
         <Heading fontSize={['md', 'lg']}>Get in touch</Heading>
-        <Box> 
-          <Stack direction='row'>
-            <Text ml={'-2rem'}> 
-              <Link color='teal.500' href='https://twitter.com/RobotrustXYZ'> Follow us on Twitter! </Link>
-            </Text>
-            <Link href='https://twitter.com/RobotrustXYZ'>
-               <Image boxSize='24px' src={twitterIcon} alt="twitter icon" /> 
-            </Link>
-          </Stack> 
+        <Box display={'flex'}> 
+          <Link href='https://twitter.com/RobotrustXYZ' padding={'5px'}>
+            <FaTwitter size='1.5em' />
+          </Link>
+          <Link href='https://discord.gg/FKCGjY5acX' padding={'5px'}>
+            <FaDiscord size='1.5em' />
+          </Link>
         </Box>
       </Box>
     </Box>
